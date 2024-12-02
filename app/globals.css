@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: 219 100% 50%;
+
+  --chart-openmesh: 219 100% 50%;
+  --chart-aws: 36 100% 50%;
+  --chart-gcp: 151 83% 34%;
+  --chart-azure: 271 81% 56%;
+  --chart-baremetal: 0 72% 51%;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
