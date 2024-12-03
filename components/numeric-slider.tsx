@@ -1,5 +1,4 @@
-import { Input } from "./ui/input"
-import { Label } from "./ui/label"
+import { NumericInput } from "./numeric-input"
 import { Slider } from "./ui/slider"
 
 export function NumericSlider({
@@ -16,18 +15,8 @@ export function NumericSlider({
   postfix?: string
 }) {
   return (
-    <div className="flex flex-col gap-1">
-      <div className="flex place-items-center">
-        <Label className="grow" htmlFor={title.replace(" ", "")}>
-          {title}
-        </Label>
-        <Input
-          className="h-auto max-w-24 px-1 py-0.5 text-right"
-          type="number"
-          value={value}
-          onChange={(e) => onChange(parseInt(e.target.value))}
-        />
-      </div>
+    <div className="mx-1 flex flex-col gap-1">
+      <NumericInput title={title} value={value} onChange={onChange} />
       <Slider
         id={title.replace(" ", "")}
         value={[toIntervalSlider(value, intervals)]}
@@ -66,8 +55,8 @@ function fromIntervalSlider(value: number, intervals: number[]) {
     return intervals[partial]
   }
   const lowerBound = Math.floor(partial)
-  return Math.round(
+  return (
     intervals[lowerBound] +
-      (partial % 1) * (intervals[lowerBound + 1] - intervals[lowerBound]),
+    (partial % 1) * (intervals[lowerBound + 1] - intervals[lowerBound])
   )
 }

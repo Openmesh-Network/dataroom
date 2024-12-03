@@ -39,9 +39,9 @@ export default function RootLayout({
           <ConfigProvider>
             <main className="grow">
               <Header />
-              <div className="flex">
+              <div className="flex bg-gray-50">
                 <Sidebar />
-                <div className="container my-10 grow">{children}</div>
+                <div className="container my-5 grow pl-3">{children}</div>
               </div>
             </main>
           </ConfigProvider>

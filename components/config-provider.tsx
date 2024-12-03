@@ -11,18 +11,70 @@ export type ConfigContextData = {
     cpu: number
     memory: number
     storage: number
+    bandwidth: number
+    electricity: number
   }
   xnodeAllocation: number
+  cost: {
+    cpu: number
+    memory: number
+    storage: number
+    bandwidth: number
+    electricity: number
+    open: number
+    xnode: number
+  }
+  hardwareAmortization: number
+  blockchain: {
+    requirement: {
+      proofOfStake: number
+      proofOfResource: number
+    }
+    rewards: {
+      validatorPercentage: number
+      earlyValidatorBonus: number
+    }
+    tokenSupply: {
+      circulating: number
+      total: number
+    }
+  }
 }
 const defaultConfigContextData: ConfigContextData = {
   nonce: 0,
   numberOfXnodes: 30_000,
   xnodeSize: {
-    cpu: 8,
-    memory: 16,
-    storage: 320,
+    cpu: 8, // cores
+    memory: 16, // GB
+    storage: 320, // GB
+    bandwidth: 1000, // GB
+    electricity: 30, // W
   },
-  xnodeAllocation: 15,
+  xnodeAllocation: 15, // %
+  cost: {
+    cpu: 132.0251, // USD per core per month
+    memory: 43.9311, // USD per gb per month
+    storage: 0.04, // USD per gb per month
+    bandwidth: 0.09, // USD per gb
+    electricity: 0.13, // USD per kWh
+    open: 0.21, // USD
+    xnode: 1500, // USD
+  },
+  hardwareAmortization: 12, // months
+  blockchain: {
+    requirement: {
+      proofOfStake: 10_000, // OPEN
+      proofOfResource: 15_000, // OPEN
+    },
+    rewards: {
+      validatorPercentage: 20, // %
+      earlyValidatorBonus: 2, // %
+    },
+    tokenSupply: {
+      circulating: 30_000_000, // OPEN
+      total: 1_000_000_000, // OPEN
+    },
+  },
 }
 const configContext = createContext<ConfigContextData>(defaultConfigContextData)
 const SetConfigContext = createContext<(config: ConfigContextData) => void>(

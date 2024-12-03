@@ -1,4 +1,4 @@
 # Openmesh Data Room
 
-https://openmesh.network/dataroom  
+https://dataroom.openmesh.network/  
 Visual representation of the Openmesh Network under certain circumstances.
