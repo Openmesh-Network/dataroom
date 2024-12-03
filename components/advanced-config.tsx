@@ -21,7 +21,7 @@ export function AdvancedConfig() {
             <DialogTitle>Advanced Configuration</DialogTitle>
           </DialogHeader>
           <ScrollArea className="h-96">
-            <div className="mx-3 flex flex-col gap-2">
+            <div className="mx-3 flex flex-col gap-2 py-1">
               <NumericInput
                 title="Number of Xnodes"
                 value={config.numberOfXnodes}
