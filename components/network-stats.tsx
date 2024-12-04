@@ -2,10 +2,11 @@
 
 import { Info } from "lucide-react"
 
+import { ChartData, Properties } from "./charts/chart-types"
+import { MultiLineChart } from "./charts/multi-line-chart"
+import { StackedBarChart } from "./charts/stacked-bar-chart"
 import { ConfigContextData, useConfig } from "./config-provider"
-import { MultiLineChart } from "./multi-line-chart"
 import { SimpleTooltip } from "./SimpleTooltip"
-import { StackedBarChart } from "./stacked-bar-chart"
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card"
 
 export function NetworkStats() {
@@ -36,11 +37,20 @@ export function NetworkStats() {
       cloudBandwidth * config.cost.bandwidth) *
     12
 
+  const totalTokensStaked = totalNetwork(
+    config,
+    config.blockchain.requirement.proofOfStake +
+      config.blockchain.requirement.proofOfResource,
+  )
+  const totalStakedValue = config.cost.open * totalTokensStaked
+
+  const totalNetworkValue = networkValue + totalStakedValue
+
   const marketcap = config.blockchain.tokenSupply.circulating * config.cost.open
   const fullyDilutedMarketcap =
     config.blockchain.tokenSupply.total * config.cost.open
 
-  const marketcapToNetworkValue = marketcap / networkValue
+  const marketcapToNetworkValue = marketcap / totalNetworkValue
 
   const xnodeAmortizedCost = config.cost.xnode / config.hardwareAmortization
   const xnodeElectricityCost =
@@ -61,8 +71,210 @@ export function NetworkStats() {
     <div className="flex flex-col gap-3">
       <Category title="Growth">
         <div className="flex w-full gap-1">
-          <StackedBarChart />
-          <MultiLineChart />
+          <StackedBarChart
+            title="Total Network Resources"
+            description="Network Resource Change Over Time"
+            chartData={[
+              {
+                xAxis: "January",
+                data: {
+                  cpu: 300000,
+                  memory: 600000,
+                  storage: 75000,
+                  bandwidth: 174338,
+                },
+              },
+              {
+                xAxis: "February",
+                data: {
+                  cpu: 285000,
+                  memory: 570000,
+                  storage: 71250,
+                  bandwidth: 174338,
+                },
+              },
+              {
+                xAxis: "March",
+                data: {
+                  cpu: 290700,
+                  memory: 581400,
+                  storage: 72675,
+                  bandwidth: 174338,
+                },
+              },
+              {
+                xAxis: "April",
+                data: {
+                  cpu: 299421,
+                  memory: 598842,
+                  storage: 74855,
+                  bandwidth: 374276,
+                },
+              },
+              {
+                xAxis: "May",
+                data: {
+                  cpu: 314392,
+                  memory: 628784,
+                  storage: 78598,
+                  bandwidth: 374276,
+                },
+              },
+              {
+                xAxis: "June",
+                data: {
+                  cpu: 342687,
+                  memory: 685375,
+                  storage: 85672,
+                  bandwidth: 428359,
+                },
+              },
+              {
+                xAxis: "July",
+                data: {
+                  cpu: 335834,
+                  memory: 671667,
+                  storage: 83958,
+                  bandwidth: 419792,
+                },
+              },
+              {
+                xAxis: "August",
+                data: {
+                  cpu: 369417,
+                  memory: 738834,
+                  storage: 92354,
+                  bandwidth: 461771,
+                },
+              },
+              {
+                xAxis: "September",
+                data: {
+                  cpu: 421135,
+                  memory: 842271,
+                  storage: 105284,
+                  bandwidth: 526419,
+                },
+              },
+              {
+                xAxis: "October",
+                data: {
+                  cpu: 484306,
+                  memory: 968611,
+                  storage: 121076,
+                  bandwidth: 605382,
+                },
+              },
+              {
+                xAxis: "November",
+                data: {
+                  cpu: 576324,
+                  memory: 1152647,
+                  storage: 144081,
+                  bandwidth: 720405,
+                },
+              },
+              {
+                xAxis: "December",
+                data: {
+                  cpu: 697352,
+                  memory: 1394703,
+                  storage: 174338,
+                  bandwidth: 871690,
+                },
+              },
+            ]}
+            chartConfig={{
+              cpu: {
+                label: "Cores",
+                color: "blue",
+              },
+              memory: {
+                label: "Memory (GB)",
+                color: "green",
+              },
+              storage: {
+                label: "Storage (GB)",
+                color: "orange",
+              },
+              bandwidth: {
+                label: "Bandwidth (GB)",
+                color: "red",
+              },
+            }}
+          />
+          <MultiLineChart
+            title="Kill the Cloud Cabal"
+            description="Storage Growth of Major Players"
+            chartData={[
+              {
+                xAxis: "January",
+                data: { openmesh: 0, aws: 65, gcp: 29, azure: 55 },
+              },
+              {
+                xAxis: "February",
+                data: { openmesh: 0, aws: 65, gcp: 30, azure: 55 },
+              },
+              {
+                xAxis: "March",
+                data: { openmesh: 0, aws: 66, gcp: 30, azure: 54 },
+              },
+              {
+                xAxis: "April",
+                data: { openmesh: 1, aws: 67, gcp: 31, azure: 55 },
+              },
+              {
+                xAxis: "May",
+                data: { openmesh: 1, aws: 66, gcp: 32, azure: 53 },
+              },
+              {
+                xAxis: "June",
+                data: { openmesh: 3, aws: 68, gcp: 31, azure: 53 },
+              },
+              {
+                xAxis: "July",
+                data: { openmesh: 5, aws: 69, gcp: 31, azure: 54 },
+              },
+              {
+                xAxis: "August",
+                data: { openmesh: 10, aws: 70, gcp: 30, azure: 53 },
+              },
+              {
+                xAxis: "September",
+                data: { openmesh: 25, aws: 71, gcp: 31, azure: 52 },
+              },
+              {
+                xAxis: "October",
+                data: { openmesh: 45, aws: 70, gcp: 31, azure: 51 },
+              },
+              {
+                xAxis: "November",
+                data: { openmesh: 60, aws: 70, gcp: 30, azure: 50 },
+              },
+              {
+                xAxis: "December",
+                data: { openmesh: 75, aws: 69, gcp: 29, azure: 49 },
+              },
+            ]}
+            chartConfig={{
+              openmesh: {
+                label: "Openmesh",
+                color: "blue",
+              },
+              aws: {
+                label: "AWS",
+                color: "Orange",
+              },
+              gcp: {
+                label: "GCP",
+                color: "Red",
+              },
+              azure: {
+                label: "Azure",
+                color: "Green",
+              },
+            }}
+          />
         </div>
       </Category>
       <Category title="Network">
@@ -84,8 +296,8 @@ export function NetworkStats() {
         />
         <SingleNumber
           description="Total Network Value (TVN)"
-          value={`${formatNumber(networkValue)} USD/yr`}
-          info="The total economic value/cost of running the network for one year, based on current market rates from AWS/Azure/GCP."
+          value={`${formatNumber(totalNetworkValue)} USD/yr`}
+          info="The total economic value of running the network for one year, based on current market rates from AWS/Azure/GCP, plus total staked tokens."
         />
         <SingleNumber
           description="Marketcap to Network Value ratio (MC/TVN)"
@@ -114,9 +326,23 @@ export function NetworkStats() {
           value={`${formatNumber(cloudBandwidth, "GB")}`}
         />
         <SingleNumber
-          description="Total Cloud Value (TVN)"
+          description="Total Cloud Revenue (TCR)"
           value={`${formatNumber(cloudValue)} USD/yr`}
-          info="The total economic value/cost of the allocated network resources, based on current market rates from AWS/Azure/GCP."
+          info="The total economic value of the allocated network resources, based on current market rates from AWS/Azure/GCP."
+        />
+      </Category>
+      <Category title="Consensus">
+        <SingleNumber
+          description="Token Price"
+          value={`${formatNumber(config.cost.open)} USD`}
+        />
+        <SingleNumber
+          description="Marketcap (MC)"
+          value={`${formatNumber(marketcap)} USD`}
+        />
+        <SingleNumber
+          description="Fully Diluted Marketcap (FDM)"
+          value={`${formatNumber(fullyDilutedMarketcap)} USD`}
         />
       </Category>
       <Category title="Tokennomics">
@@ -159,6 +385,64 @@ function totalNetwork(config: ConfigContextData, perNode: number) {
 
 function totalCloud(config: ConfigContextData, totalNetwork: number) {
   return totalNetwork * (config.xnodeAllocation / 100)
+}
+
+function growth<T extends Properties>(
+  config: ConfigContextData,
+  datapoint: (nodes: number) => T,
+): ChartData<T> {
+  return [
+    {
+      xAxis: "January",
+      nodes: config.growth.nodes.jan,
+    },
+    {
+      xAxis: "February",
+      nodes: config.growth.nodes.feb,
+    },
+    {
+      xAxis: "March",
+      nodes: config.growth.nodes.mar,
+    },
+    {
+      xAxis: "April",
+      nodes: config.growth.nodes.apr,
+    },
+    {
+      xAxis: "May",
+      nodes: config.growth.nodes.may,
+    },
+    {
+      xAxis: "June",
+      nodes: config.growth.nodes.jun,
+    },
+    {
+      xAxis: "July",
+      nodes: config.growth.nodes.jul,
+    },
+    {
+      xAxis: "August",
+      nodes: config.growth.nodes.aug,
+    },
+    {
+      xAxis: "September",
+      nodes: config.growth.nodes.sep,
+    },
+    {
+      xAxis: "October",
+      nodes: config.growth.nodes.oct,
+    },
+    {
+      xAxis: "November",
+      nodes: config.growth.nodes.nov,
+    },
+    {
+      xAxis: "December",
+      nodes: config.growth.nodes.dec,
+    },
+  ].map((month) => {
+    return { xAxis: month.xAxis, data: datapoint(month.nodes) }
+  })
 }
 
 function Category({

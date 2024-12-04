@@ -38,6 +38,32 @@ export type ConfigContextData = {
       circulating: number
       total: number
     }
+    consensus: {
+      faultTolerance: {
+        halt: number
+        takeover: number
+      }
+      finalizationTime: {
+        base: number
+        logMultiplier: number
+      }
+    }
+  }
+  growth: {
+    nodes: {
+      jan: number
+      feb: number
+      mar: number
+      apr: number
+      may: number
+      jun: number
+      jul: number
+      aug: number
+      sep: number
+      oct: number
+      nov: number
+      dec: number
+    }
   }
 }
 const defaultConfigContextData: ConfigContextData = {
@@ -73,6 +99,32 @@ const defaultConfigContextData: ConfigContextData = {
     tokenSupply: {
       circulating: 30_000_000, // OPEN
       total: 1_000_000_000, // OPEN
+    },
+    consensus: {
+      faultTolerance: {
+        halt: 33, // %
+        takeover: 66, //%
+      },
+      finalizationTime: {
+        base: 1, // seconds
+        logMultiplier: 0.1, // factor
+      },
+    },
+  },
+  growth: {
+    nodes: {
+      jan: 3000,
+      feb: 800,
+      mar: 1200,
+      apr: 500,
+      may: 25,
+      jun: 600,
+      jul: 50,
+      aug: 200,
+      sep: 40,
+      oct: 500,
+      nov: 100,
+      dec: 200,
     },
   },
 }
