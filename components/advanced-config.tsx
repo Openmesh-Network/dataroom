@@ -398,8 +398,9 @@ export function AdvancedConfig() {
                     "October",
                     "November",
                     "December",
-                  ].map((month) => (
+                  ].map((month, i) => (
                     <NumericInput
+                      key={i}
                       title={month}
                       value={
                         config.growth.nodes[

@@ -39,7 +39,9 @@ export function StackedBarChart<T extends Properties>(params: ChartParams<T>) {
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) =>
+                params.tickFormatter?.(value) ?? value.slice(0, 3)
+              }
             />
             <ChartTooltip content={<ChartTooltipContent />} />
             <ChartLegend content={<ChartLegendContent />} />

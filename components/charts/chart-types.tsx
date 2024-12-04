@@ -20,4 +20,5 @@ export type ChartParams<T extends Properties> = {
   chartData: ChartData<T>
   chartConfig: ChartConfig<T>
   classname?: string
+  tickFormatter?: (xAxis: string) => string
 }

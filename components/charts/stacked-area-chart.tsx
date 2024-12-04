@@ -43,7 +43,9 @@ export function StackedAreaChart<T extends Properties>(params: ChartParams<T>) {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) =>
+                params.tickFormatter?.(value) ?? value.slice(0, 3)
+              }
             />
             <ChartTooltip
               cursor={false}

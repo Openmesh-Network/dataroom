@@ -1,13 +1,10 @@
 "use client"
 
-import { Info } from "lucide-react"
-
 import { ChartData, Properties } from "./charts/chart-types"
 import { MultiLineChart } from "./charts/multi-line-chart"
 import { StackedAreaChart } from "./charts/stacked-area-chart"
 import { StackedBarChart } from "./charts/stacked-bar-chart"
 import { ConfigContextData, useConfig } from "./config-provider"
-import { SimpleTooltip } from "./SimpleTooltip"
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card"
 
 export function NetworkStats() {
@@ -91,7 +88,7 @@ export function NetworkStats() {
     <div className="flex flex-col gap-3">
       <Category title="Network">
         <StackedBarChart
-          classname="col-span-2 row-span-2"
+          classname="col-span-2 row-span-2 content-center"
           title="Total Network Resources"
           description="Network Resource Change Over Time"
           chartData={growth(config, (nodes) => {
@@ -140,7 +137,6 @@ export function NetworkStats() {
         <SingleNumber
           description="Total Network Value (TVN)"
           value={`${formatNumber(totalNetworkValue)} USD/yr`}
-          info="The total economic value of running the network for one year, based on current market rates from AWS/Azure/GCP, plus total staked tokens."
         />
         <SingleNumber
           description="Marketcap to Network Value ratio (MC/TVN)"
@@ -152,6 +148,290 @@ export function NetworkStats() {
         />
       </Category>
       <Category title="Cloud">
+        <MultiLineChart
+          classname="max-md:col-span-2 max-md:row-span-2 content-center"
+          title="Compute Cost"
+          description="Monthly cost of per core at certain order sizes"
+          tickFormatter={(xAxis) => xAxis.split(" ")[0]}
+          chartData={[
+            {
+              xAxis: "1 Cores",
+              data: {
+                openmesh: 0.01,
+                aws: 0.05,
+                gcp: 0.04,
+                azure: 0.03,
+              },
+            },
+            {
+              xAxis: "10 Cores",
+              data: {
+                openmesh: 0.01,
+                aws: 0.05,
+                gcp: 0.04,
+                azure: 0.03,
+              },
+            },
+            {
+              xAxis: "100 Cores",
+              data: {
+                openmesh: 0.01,
+                aws: 0.04,
+                gcp: 0.04,
+                azure: 0.03,
+              },
+            },
+            {
+              xAxis: "1k Cores",
+              data: {
+                openmesh: 0.01,
+                aws: 0.03,
+                gcp: 0.03,
+                azure: 0.02,
+              },
+            },
+            {
+              xAxis: "100k Cores",
+              data: {
+                openmesh: 0.01,
+                aws: 0.02,
+                gcp: 0.02,
+                azure: 0.01,
+              },
+            },
+          ]}
+          chartConfig={{
+            openmesh: {
+              label: "Openmesh",
+              color: "blue",
+            },
+            aws: {
+              label: "AWS",
+              color: "Orange",
+            },
+            gcp: {
+              label: "GCP",
+              color: "Red",
+            },
+            azure: {
+              label: "Azure",
+              color: "Green",
+            },
+          }}
+        />
+        <MultiLineChart
+          classname="max-md:col-span-2 max-md:row-span-2 content-center"
+          title="Memory Cost"
+          description="Monthly cost of per GB of memory at certain order sizes"
+          tickFormatter={(xAxis) => xAxis}
+          chartData={[
+            {
+              xAxis: "1GB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.05,
+                gcp: 0.04,
+                azure: 0.03,
+              },
+            },
+            {
+              xAxis: "10GB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.05,
+                gcp: 0.04,
+                azure: 0.03,
+              },
+            },
+            {
+              xAxis: "100GB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.04,
+                gcp: 0.04,
+                azure: 0.03,
+              },
+            },
+            {
+              xAxis: "1TB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.03,
+                gcp: 0.03,
+                azure: 0.02,
+              },
+            },
+            {
+              xAxis: "100TB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.02,
+                gcp: 0.02,
+                azure: 0.01,
+              },
+            },
+          ]}
+          chartConfig={{
+            openmesh: {
+              label: "Openmesh",
+              color: "blue",
+            },
+            aws: {
+              label: "AWS",
+              color: "Orange",
+            },
+            gcp: {
+              label: "GCP",
+              color: "Red",
+            },
+            azure: {
+              label: "Azure",
+              color: "Green",
+            },
+          }}
+        />
+        <MultiLineChart
+          classname="max-md:col-span-2 max-md:row-span-2 content-center"
+          title="Storage Cost"
+          description="Monthly cost of per GB of storage at certain order sizes"
+          tickFormatter={(xAxis) => xAxis}
+          chartData={[
+            {
+              xAxis: "1GB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.05,
+                gcp: 0.04,
+                azure: 0.03,
+              },
+            },
+            {
+              xAxis: "100GB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.05,
+                gcp: 0.04,
+                azure: 0.03,
+              },
+            },
+            {
+              xAxis: "1TB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.04,
+                gcp: 0.04,
+                azure: 0.03,
+              },
+            },
+            {
+              xAxis: "10TB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.03,
+                gcp: 0.03,
+                azure: 0.02,
+              },
+            },
+            {
+              xAxis: "1PB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.02,
+                gcp: 0.02,
+                azure: 0.01,
+              },
+            },
+          ]}
+          chartConfig={{
+            openmesh: {
+              label: "Openmesh",
+              color: "blue",
+            },
+            aws: {
+              label: "AWS",
+              color: "Orange",
+            },
+            gcp: {
+              label: "GCP",
+              color: "Red",
+            },
+            azure: {
+              label: "Azure",
+              color: "Green",
+            },
+          }}
+        />
+        <MultiLineChart
+          classname="max-md:col-span-2 max-md:row-span-2 content-center"
+          title="Bandwidth Cost"
+          description="Cost per GB of bandwidth at certain order sizes"
+          tickFormatter={(xAxis) => xAxis}
+          chartData={[
+            {
+              xAxis: "1GB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.05,
+                gcp: 0.04,
+                azure: 0.03,
+              },
+            },
+            {
+              xAxis: "100GB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.05,
+                gcp: 0.04,
+                azure: 0.03,
+              },
+            },
+            {
+              xAxis: "1TB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.04,
+                gcp: 0.04,
+                azure: 0.03,
+              },
+            },
+            {
+              xAxis: "10TB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.03,
+                gcp: 0.03,
+                azure: 0.02,
+              },
+            },
+            {
+              xAxis: "1PB",
+              data: {
+                openmesh: 0.01,
+                aws: 0.02,
+                gcp: 0.02,
+                azure: 0.01,
+              },
+            },
+          ]}
+          chartConfig={{
+            openmesh: {
+              label: "Openmesh",
+              color: "blue",
+            },
+            aws: {
+              label: "AWS",
+              color: "Orange",
+            },
+            gcp: {
+              label: "GCP",
+              color: "Red",
+            },
+            azure: {
+              label: "Azure",
+              color: "Green",
+            },
+          }}
+        />
         <SingleNumber
           description="Total Cloud Compute (TCC)"
           value={`${formatNumber(cloudCompute)} cores`}
@@ -171,7 +451,6 @@ export function NetworkStats() {
         <SingleNumber
           description="Total Cloud Revenue (TCR)"
           value={`${formatNumber(cloudValue)} USD/yr`}
-          info="The total economic value of the allocated network resources, based on current market rates from AWS/Azure/GCP."
         />
         <SingleNumber
           description="Data Value Index (DVI)"
@@ -218,7 +497,7 @@ export function NetworkStats() {
       </Category>
       <Category title="Tokennomics">
         <StackedAreaChart
-          classname="col-span-2 row-span-2"
+          classname="col-span-2 row-span-2 content-center"
           title="Token Utilization Velocity"
           description="OPEN tokens part of transactions"
           chartData={growth(config, (nodes) => {
@@ -349,11 +628,9 @@ function Category({
 function SingleNumber({
   value,
   description,
-  info,
 }: {
   value: string
   description: string
-  info?: string
 }) {
   return (
     <Card className="content-center rounded-none px-10 py-10">
