@@ -20,7 +20,7 @@ import { ChartParams, Properties } from "./chart-types"
 
 export function StackedBarChart<T extends Properties>(params: ChartParams<T>) {
   return (
-    <Card className="w-full">
+    <Card className={params.classname}>
       <CardHeader>
         <CardTitle>{params.title}</CardTitle>
         <CardDescription>{params.description}</CardDescription>

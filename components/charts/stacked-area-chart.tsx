@@ -12,13 +12,13 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import { Area, AreaChart, CartesianGrid, Line, XAxis } from "recharts"
 
 import { ChartParams, Properties } from "./chart-types"
 
 export function StackedAreaChart<T extends Properties>(params: ChartParams<T>) {
   return (
-    <Card>
+    <Card className={params.classname}>
       <CardHeader>
         <CardTitle>{params.title}</CardTitle>
         <CardDescription>{params.description}</CardDescription>
@@ -60,6 +60,13 @@ export function StackedAreaChart<T extends Properties>(params: ChartParams<T>) {
                 stackId="a"
               />
             ))}
+            <Line
+              dataKey={"threshold"}
+              type="monotone"
+              stroke={`var(--color-threshold)`}
+              strokeWidth={2}
+              dot={false}
+            />
           </AreaChart>
         </ChartContainer>
       </CardContent>

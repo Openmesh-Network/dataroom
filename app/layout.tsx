@@ -20,11 +20,6 @@ export const metadata: Metadata = {
     "Visual representation of the Openmesh Network under certain circumstances.",
 }
 
-export const viewport: Viewport = {
-  width: "1024",
-  viewportFit: "contain",
-}
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,16 +27,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} zoom flex min-w-[1024px] font-sans antialiased`}
-      >
+      <body className={`${geistSans.variable} zoom flex font-sans antialiased`}>
         <Suspense>
           <ConfigProvider>
             <main className="grow">
               <Header />
-              <div className="flex bg-gray-50">
+              <div className="flex bg-gray-50 max-md:flex-col">
                 <Sidebar />
-                <div className="container my-5 grow pl-3">{children}</div>
+                <div className="container my-5 grow pl-3 max-md:my-0">
+                  {children}
+                </div>
               </div>
             </main>
           </ConfigProvider>

@@ -50,7 +50,7 @@ export function Header() {
       </Link>
       <div className="min-w-5 grow" />
       <nav className="flex gap-6">
-        {items.map((item, index) => (
+        {items.slice(0, 0).map((item, index) => (
           <Link
             key={index}
             href={item.disabled ? "#" : item.href}

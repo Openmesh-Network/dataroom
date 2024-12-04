@@ -9,8 +9,9 @@ import { Separator } from "./ui/separator"
 export default function Sidebar() {
   const config = useConfig()
   const setConfig = useSetConfig()
+
   return (
-    <aside className="sticky top-0 h-screen min-w-[350px] py-12 pt-5">
+    <aside className="sticky top-0 h-screen min-w-[350px] py-12 pt-5 max-md:relative max-md:h-auto">
       <nav className="grid items-start gap-3 px-3 font-medium">
         <Category title="Network Configuration">
           <NumericSlider
@@ -73,11 +74,11 @@ export default function Sidebar() {
           <Separator />
           <NumericSlider
             title="Avg. Xnode Allocation"
-            value={config.xnodeAllocation}
+            value={config.xnodeAllocationPercentage}
             onChange={(v) =>
               setConfig({
                 ...config,
-                xnodeAllocation: v,
+                xnodeAllocationPercentage: v,
               })
             }
             intervals={[0, 25, 50, 75, 100]}

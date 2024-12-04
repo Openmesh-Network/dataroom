@@ -90,11 +90,11 @@ export function AdvancedConfig() {
               <Separator />
               <NumericInput
                 title="Average Xnode Allocation Percentage"
-                value={config.xnodeAllocation}
+                value={config.xnodeAllocationPercentage}
                 onChange={(v) =>
                   setConfig({
                     ...config,
-                    xnodeAllocation: v,
+                    xnodeAllocationPercentage: v,
                   })
                 }
               />
@@ -166,12 +166,34 @@ export function AdvancedConfig() {
               />
               <Separator />
               <NumericInput
+                title="Cost of 1 TB of Web3 Data"
+                value={config.cost.web3Data}
+                onChange={(v) =>
+                  setConfig({
+                    ...config,
+                    cost: { ...config.cost, web3Data: v },
+                  })
+                }
+              />
+              <Separator />
+              <NumericInput
                 title="Hardware Amortization Months"
                 value={config.hardwareAmortization}
                 onChange={(v) =>
                   setConfig({
                     ...config,
                     hardwareAmortization: v,
+                  })
+                }
+              />
+              <Separator />
+              <NumericInput
+                title="Cloud Web3 Data Percentage"
+                value={config.web3DataPercentage}
+                onChange={(v) =>
+                  setConfig({
+                    ...config,
+                    web3DataPercentage: v,
                   })
                 }
               />
@@ -277,6 +299,129 @@ export function AdvancedConfig() {
                   })
                 }
               />
+              <Separator />
+              <NumericInput
+                title="Consensus Halt Fault Tolerance Percentage"
+                value={config.blockchain.consensus.faultTolerance.halt}
+                onChange={(v) =>
+                  setConfig({
+                    ...config,
+                    blockchain: {
+                      ...config.blockchain,
+                      consensus: {
+                        ...config.blockchain.consensus,
+                        faultTolerance: {
+                          ...config.blockchain.consensus.faultTolerance,
+                          halt: v,
+                        },
+                      },
+                    },
+                  })
+                }
+              />
+              <Separator />
+              <NumericInput
+                title="Consensus Takeover Fault Tolerance Percentage"
+                value={config.blockchain.consensus.faultTolerance.takeover}
+                onChange={(v) =>
+                  setConfig({
+                    ...config,
+                    blockchain: {
+                      ...config.blockchain,
+                      consensus: {
+                        ...config.blockchain.consensus,
+                        faultTolerance: {
+                          ...config.blockchain.consensus.faultTolerance,
+                          takeover: v,
+                        },
+                      },
+                    },
+                  })
+                }
+              />
+              <Separator />
+              <NumericInput
+                title="Consensus Base Finalization Time"
+                value={config.blockchain.consensus.finalizationTime.base}
+                onChange={(v) =>
+                  setConfig({
+                    ...config,
+                    blockchain: {
+                      ...config.blockchain,
+                      consensus: {
+                        ...config.blockchain.consensus,
+                        finalizationTime: {
+                          ...config.blockchain.consensus.finalizationTime,
+                          base: v,
+                        },
+                      },
+                    },
+                  })
+                }
+              />
+              <Separator />
+              <NumericInput
+                title="Consensus Finalization Time Multiplier"
+                value={
+                  config.blockchain.consensus.finalizationTime.sqrtMultiplier
+                }
+                onChange={(v) =>
+                  setConfig({
+                    ...config,
+                    blockchain: {
+                      ...config.blockchain,
+                      consensus: {
+                        ...config.blockchain.consensus,
+                        finalizationTime: {
+                          ...config.blockchain.consensus.finalizationTime,
+                          sqrtMultiplier: v,
+                        },
+                      },
+                    },
+                  })
+                }
+              />
+              <Separator />
+              <div className="flex flex-col gap-2">
+                <span>Node Growth</span>
+                <div className="ml-1 flex flex-col gap-1">
+                  {[
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
+                  ].map((month) => (
+                    <NumericInput
+                      title={month}
+                      value={
+                        config.growth.nodes[
+                          month.slice(0, 3).toLowerCase() as "jan"
+                        ]
+                      }
+                      onChange={(v) =>
+                        setConfig({
+                          ...config,
+                          growth: {
+                            ...config.growth,
+                            nodes: {
+                              ...config.growth.nodes,
+                              [month.slice(0, 3).toLowerCase() as "jan"]: v,
+                            },
+                          },
+                        })
+                      }
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           </ScrollArea>
         </DialogContent>

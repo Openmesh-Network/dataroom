@@ -4,6 +4,7 @@ import { Info } from "lucide-react"
 
 import { ChartData, Properties } from "./charts/chart-types"
 import { MultiLineChart } from "./charts/multi-line-chart"
+import { StackedAreaChart } from "./charts/stacked-area-chart"
 import { StackedBarChart } from "./charts/stacked-bar-chart"
 import { ConfigContextData, useConfig } from "./config-provider"
 import { SimpleTooltip } from "./SimpleTooltip"
@@ -45,6 +46,8 @@ export function NetworkStats() {
   const totalStakedValue = config.cost.open * totalTokensStaked
 
   const totalNetworkValue = networkValue + totalStakedValue
+  const dataValueIndex =
+    cloudStorage * (config.web3DataPercentage / 100) * config.cost.web3Data
 
   const marketcap = config.blockchain.tokenSupply.circulating * config.cost.open
   const fullyDilutedMarketcap =
@@ -67,217 +70,57 @@ export function NetworkStats() {
       xnodeBandwidthRevenue) /
     (xnodeAmortizedCost + xnodeElectricityCost)
 
+  const networkHaltNodeThreshold = Math.round(
+    config.numberOfXnodes *
+      (config.blockchain.consensus.faultTolerance.halt / 100),
+  )
+  const networkTakeoverNodeThreshold = Math.round(
+    config.numberOfXnodes *
+      (config.blockchain.consensus.faultTolerance.takeover / 100),
+  )
+  const consensusFinalizationTime =
+    config.blockchain.consensus.finalizationTime.base +
+    config.blockchain.consensus.finalizationTime.sqrtMultiplier *
+      Math.sqrt(config.numberOfXnodes)
+
+  const economicBreachResistance =
+    totalStakedValue *
+    (config.blockchain.consensus.faultTolerance.takeover / 100)
+
   return (
     <div className="flex flex-col gap-3">
-      <Category title="Growth">
-        <div className="flex w-full gap-1">
-          <StackedBarChart
-            title="Total Network Resources"
-            description="Network Resource Change Over Time"
-            chartData={[
-              {
-                xAxis: "January",
-                data: {
-                  cpu: 300000,
-                  memory: 600000,
-                  storage: 75000,
-                  bandwidth: 174338,
-                },
-              },
-              {
-                xAxis: "February",
-                data: {
-                  cpu: 285000,
-                  memory: 570000,
-                  storage: 71250,
-                  bandwidth: 174338,
-                },
-              },
-              {
-                xAxis: "March",
-                data: {
-                  cpu: 290700,
-                  memory: 581400,
-                  storage: 72675,
-                  bandwidth: 174338,
-                },
-              },
-              {
-                xAxis: "April",
-                data: {
-                  cpu: 299421,
-                  memory: 598842,
-                  storage: 74855,
-                  bandwidth: 374276,
-                },
-              },
-              {
-                xAxis: "May",
-                data: {
-                  cpu: 314392,
-                  memory: 628784,
-                  storage: 78598,
-                  bandwidth: 374276,
-                },
-              },
-              {
-                xAxis: "June",
-                data: {
-                  cpu: 342687,
-                  memory: 685375,
-                  storage: 85672,
-                  bandwidth: 428359,
-                },
-              },
-              {
-                xAxis: "July",
-                data: {
-                  cpu: 335834,
-                  memory: 671667,
-                  storage: 83958,
-                  bandwidth: 419792,
-                },
-              },
-              {
-                xAxis: "August",
-                data: {
-                  cpu: 369417,
-                  memory: 738834,
-                  storage: 92354,
-                  bandwidth: 461771,
-                },
-              },
-              {
-                xAxis: "September",
-                data: {
-                  cpu: 421135,
-                  memory: 842271,
-                  storage: 105284,
-                  bandwidth: 526419,
-                },
-              },
-              {
-                xAxis: "October",
-                data: {
-                  cpu: 484306,
-                  memory: 968611,
-                  storage: 121076,
-                  bandwidth: 605382,
-                },
-              },
-              {
-                xAxis: "November",
-                data: {
-                  cpu: 576324,
-                  memory: 1152647,
-                  storage: 144081,
-                  bandwidth: 720405,
-                },
-              },
-              {
-                xAxis: "December",
-                data: {
-                  cpu: 697352,
-                  memory: 1394703,
-                  storage: 174338,
-                  bandwidth: 871690,
-                },
-              },
-            ]}
-            chartConfig={{
-              cpu: {
-                label: "Cores",
-                color: "blue",
-              },
-              memory: {
-                label: "Memory (GB)",
-                color: "green",
-              },
-              storage: {
-                label: "Storage (GB)",
-                color: "orange",
-              },
-              bandwidth: {
-                label: "Bandwidth (GB)",
-                color: "red",
-              },
-            }}
-          />
-          <MultiLineChart
-            title="Kill the Cloud Cabal"
-            description="Storage Growth of Major Players"
-            chartData={[
-              {
-                xAxis: "January",
-                data: { openmesh: 0, aws: 65, gcp: 29, azure: 55 },
-              },
-              {
-                xAxis: "February",
-                data: { openmesh: 0, aws: 65, gcp: 30, azure: 55 },
-              },
-              {
-                xAxis: "March",
-                data: { openmesh: 0, aws: 66, gcp: 30, azure: 54 },
-              },
-              {
-                xAxis: "April",
-                data: { openmesh: 1, aws: 67, gcp: 31, azure: 55 },
-              },
-              {
-                xAxis: "May",
-                data: { openmesh: 1, aws: 66, gcp: 32, azure: 53 },
-              },
-              {
-                xAxis: "June",
-                data: { openmesh: 3, aws: 68, gcp: 31, azure: 53 },
-              },
-              {
-                xAxis: "July",
-                data: { openmesh: 5, aws: 69, gcp: 31, azure: 54 },
-              },
-              {
-                xAxis: "August",
-                data: { openmesh: 10, aws: 70, gcp: 30, azure: 53 },
-              },
-              {
-                xAxis: "September",
-                data: { openmesh: 25, aws: 71, gcp: 31, azure: 52 },
-              },
-              {
-                xAxis: "October",
-                data: { openmesh: 45, aws: 70, gcp: 31, azure: 51 },
-              },
-              {
-                xAxis: "November",
-                data: { openmesh: 60, aws: 70, gcp: 30, azure: 50 },
-              },
-              {
-                xAxis: "December",
-                data: { openmesh: 75, aws: 69, gcp: 29, azure: 49 },
-              },
-            ]}
-            chartConfig={{
-              openmesh: {
-                label: "Openmesh",
-                color: "blue",
-              },
-              aws: {
-                label: "AWS",
-                color: "Orange",
-              },
-              gcp: {
-                label: "GCP",
-                color: "Red",
-              },
-              azure: {
-                label: "Azure",
-                color: "Green",
-              },
-            }}
-          />
-        </div>
-      </Category>
       <Category title="Network">
+        <StackedBarChart
+          classname="col-span-2 row-span-2"
+          title="Total Network Resources"
+          description="Network Resource Change Over Time"
+          chartData={growth(config, (nodes) => {
+            return {
+              cpu: nodes * config.xnodeSize.cpu,
+              memory: nodes * config.xnodeSize.memory,
+              storage: nodes * config.xnodeSize.storage,
+              bandwidth: nodes * config.xnodeSize.bandwidth,
+            }
+          })}
+          chartConfig={{
+            cpu: {
+              label: "Cores",
+              color: "red",
+            },
+            memory: {
+              label: "Memory (GB)",
+              color: "orange",
+            },
+            storage: {
+              label: "Storage (GB)",
+              color: "green",
+            },
+            bandwidth: {
+              label: "Bandwidth (GB)",
+              color: "blue",
+            },
+          }}
+        />
         <SingleNumber
           description="Total Network Compute (TNC)"
           value={`${formatNumber(networkCompute)} cores`}
@@ -330,22 +173,75 @@ export function NetworkStats() {
           value={`${formatNumber(cloudValue)} USD/yr`}
           info="The total economic value of the allocated network resources, based on current market rates from AWS/Azure/GCP."
         />
+        <SingleNumber
+          description="Data Value Index (DVI)"
+          value={`${formatNumber(dataValueIndex)} USD`}
+        />
       </Category>
       <Category title="Consensus">
-        <SingleNumber
-          description="Token Price"
-          value={`${formatNumber(config.cost.open)} USD`}
+        <StackedAreaChart
+          classname="col-span-2 row-span-2"
+          title="Network Health"
+          description="Healthy Nodes vs Faulty Nodes"
+          chartData={growth(config, (nodes) => {
+            const faulty = Math.round((Math.random() * nodes) / 10)
+            return {
+              faulty: faulty,
+              healthy: nodes - faulty,
+            }
+          })}
+          chartConfig={{
+            faulty: { label: "Faulty", color: "red" },
+            healthy: { label: "Healthy", color: "green" },
+          }}
         />
         <SingleNumber
-          description="Marketcap (MC)"
-          value={`${formatNumber(marketcap)} USD`}
+          description="Network Halt Node Threshold (NHNT)"
+          value={`${formatNumber(networkHaltNodeThreshold)}`}
         />
         <SingleNumber
-          description="Fully Diluted Marketcap (FDM)"
-          value={`${formatNumber(fullyDilutedMarketcap)} USD`}
+          description="Network Takeover Node Threshold (NTNT)"
+          value={`${formatNumber(networkTakeoverNodeThreshold)}`}
+        />
+        <SingleNumber
+          description="Staking Locked Value (SLV)"
+          value={`${formatNumber(totalStakedValue)} USD`}
+        />
+        <SingleNumber
+          description="Economic Breach Resistance (EBR)"
+          value={`${formatNumber(economicBreachResistance)} USD`}
+        />
+        <SingleNumber
+          description="Consensus Finalization Time (CFT)"
+          value={`${formatNumber(consensusFinalizationTime)}s`}
         />
       </Category>
       <Category title="Tokennomics">
+        <StackedAreaChart
+          classname="col-span-2 row-span-2"
+          title="Token Utilization Velocity"
+          description="OPEN tokens part of transactions"
+          chartData={growth(config, (nodes) => {
+            const used = Math.min(
+              nodes * config.blockchain.requirement.proofOfStake,
+              config.blockchain.tokenSupply.circulating,
+            )
+            return {
+              used: used,
+              unused: config.blockchain.tokenSupply.circulating - used,
+            }
+          })}
+          chartConfig={{
+            used: {
+              label: "Part of a transaction",
+              color: "blue",
+            },
+            unused: {
+              label: "Stale",
+              color: "orange",
+            },
+          }}
+        />
         <SingleNumber
           description="Token Price"
           value={`${formatNumber(config.cost.open)} USD`}
@@ -384,65 +280,53 @@ function totalNetwork(config: ConfigContextData, perNode: number) {
 }
 
 function totalCloud(config: ConfigContextData, totalNetwork: number) {
-  return totalNetwork * (config.xnodeAllocation / 100)
+  return totalNetwork * (config.xnodeAllocationPercentage / 100)
 }
 
 function growth<T extends Properties>(
   config: ConfigContextData,
   datapoint: (nodes: number) => T,
 ): ChartData<T> {
-  return [
-    {
-      xAxis: "January",
-      nodes: config.growth.nodes.jan,
-    },
-    {
-      xAxis: "February",
-      nodes: config.growth.nodes.feb,
-    },
-    {
-      xAxis: "March",
-      nodes: config.growth.nodes.mar,
-    },
-    {
-      xAxis: "April",
-      nodes: config.growth.nodes.apr,
-    },
-    {
-      xAxis: "May",
-      nodes: config.growth.nodes.may,
-    },
-    {
-      xAxis: "June",
-      nodes: config.growth.nodes.jun,
-    },
-    {
-      xAxis: "July",
-      nodes: config.growth.nodes.jul,
-    },
-    {
-      xAxis: "August",
-      nodes: config.growth.nodes.aug,
-    },
-    {
-      xAxis: "September",
-      nodes: config.growth.nodes.sep,
-    },
-    {
-      xAxis: "October",
-      nodes: config.growth.nodes.oct,
-    },
-    {
-      xAxis: "November",
-      nodes: config.growth.nodes.nov,
-    },
-    {
-      xAxis: "December",
-      nodes: config.growth.nodes.dec,
-    },
-  ].map((month) => {
-    return { xAxis: month.xAxis, data: datapoint(month.nodes) }
-  })
+  const growSize = [
+    config.growth.nodes.jan,
+    config.growth.nodes.feb,
+    config.growth.nodes.mar,
+    config.growth.nodes.apr,
+    config.growth.nodes.may,
+    config.growth.nodes.jun,
+    config.growth.nodes.jul,
+    config.growth.nodes.aug,
+    config.growth.nodes.sep,
+    config.growth.nodes.oct,
+    config.growth.nodes.nov,
+    config.growth.nodes.dec,
+  ]
+  const labels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ]
+  return labels
+    .map((label, i) => {
+      return {
+        xAxis: label,
+        nodes: growSize
+          .slice(0, i + 1)
+          .reduce((prev, cur) => prev + cur, config.numberOfXnodes),
+      }
+    })
+    .map((month) => {
+      return { xAxis: month.xAxis, data: datapoint(month.nodes) }
+    })
 }
 
 function Category({
@@ -455,7 +339,9 @@ function Category({
   return (
     <div className="flex flex-col gap-1">
       <span className="ml-1 text-lg font-semibold">{title}</span>
-      <div className="flex flex-wrap">{children}</div>
+      <div className="grid w-full auto-rows-auto grid-cols-4 gap-1 max-md:grid-cols-2">
+        {children}
+      </div>
     </div>
   )
 }
@@ -470,16 +356,15 @@ function SingleNumber({
   info?: string
 }) {
   return (
-    <Card className="rounded-none px-10 py-10">
-      <SimpleTooltip tooltip={info}>
-        <CardHeader className="place-items-center">
-          <CardTitle className="flex gap-1 text-3xl">
-            {value}
-            {info && <Info className="size-4" />}
-          </CardTitle>
-          <CardDescription className="text-base">{description}</CardDescription>
-        </CardHeader>
-      </SimpleTooltip>
+    <Card className="content-center rounded-none px-10 py-10">
+      <CardHeader className="place-items-center">
+        <CardTitle className="flex gap-1 text-center text-3xl">
+          {value}
+        </CardTitle>
+        <CardDescription className="text-center text-base">
+          {description}
+        </CardDescription>
+      </CardHeader>
     </Card>
   )
 }

@@ -14,7 +14,7 @@ export type ConfigContextData = {
     bandwidth: number
     electricity: number
   }
-  xnodeAllocation: number
+  xnodeAllocationPercentage: number
   cost: {
     cpu: number
     memory: number
@@ -23,8 +23,10 @@ export type ConfigContextData = {
     electricity: number
     open: number
     xnode: number
+    web3Data: number
   }
   hardwareAmortization: number
+  web3DataPercentage: number
   blockchain: {
     requirement: {
       proofOfStake: number
@@ -45,7 +47,7 @@ export type ConfigContextData = {
       }
       finalizationTime: {
         base: number
-        logMultiplier: number
+        sqrtMultiplier: number
       }
     }
   }
@@ -76,7 +78,7 @@ const defaultConfigContextData: ConfigContextData = {
     bandwidth: 1000, // GB
     electricity: 30, // W
   },
-  xnodeAllocation: 15, // %
+  xnodeAllocationPercentage: 15, // %
   cost: {
     cpu: 132.0251, // USD per core per month
     memory: 43.9311, // USD per gb per month
@@ -85,8 +87,10 @@ const defaultConfigContextData: ConfigContextData = {
     electricity: 0.13, // USD per kWh
     open: 0.21, // USD
     xnode: 1500, // USD
+    web3Data: 304.95, // USD per tb
   },
   hardwareAmortization: 12, // months
+  web3DataPercentage: 10, // %
   blockchain: {
     requirement: {
       proofOfStake: 10_000, // OPEN
@@ -107,7 +111,7 @@ const defaultConfigContextData: ConfigContextData = {
       },
       finalizationTime: {
         base: 1, // seconds
-        logMultiplier: 0.1, // factor
+        sqrtMultiplier: 0.15, // factor
       },
     },
   },
@@ -149,7 +153,7 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
       ) as ConfigContextData
       if (decodedConfig.nonce > config.nonce) {
         console.log("Config loaded from url", decodedConfig)
-        setConfig(decodedConfig)
+        setConfig({ ...config, ...decodedConfig })
         return
       }
     }
