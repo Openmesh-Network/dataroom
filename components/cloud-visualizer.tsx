@@ -186,7 +186,7 @@ export function CloudVisualizer() {
                 y={CENTER_Y - 330}
                 className="fill-gray-500 text-xs"
               >
-                {`${allocation}% Resources Allocated`}
+                {`${formatNumber(allocation, "ratio")}% Resources Allocated`}
               </tspan>
             </text>
           </g>
@@ -254,7 +254,7 @@ export function CloudVisualizer() {
           >
             Openmesh Cloud
             <tspan x={CENTER_X} dy="20" className="fill-gray-500 text-xs">
-              {`${allocation}% Resources Allocated`}
+              {`${formatNumber(allocation, "ratio")}% Resources Allocated`}
             </tspan>
           </text>
 
