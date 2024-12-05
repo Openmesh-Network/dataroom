@@ -88,7 +88,7 @@ export function NetworkStats() {
     <div className="flex flex-col gap-3">
       <Category title="Network">
         <StackedBarChart
-          classname="col-span-2 row-span-2 content-center"
+          classname="col-span-2 row-span-2 lg:max-xl:row-span-1 content-center"
           title="Total Network Resources"
           description="Network Resource Change Over Time"
           chartData={growth(config, (nodes) => {
@@ -149,7 +149,7 @@ export function NetworkStats() {
       </Category>
       <Category title="Cloud">
         <MultiLineChart
-          classname="max-md:col-span-2 max-md:row-span-2 content-center"
+          classname="max-xl:col-span-2 max-xl:row-span-2 content-center"
           title="Compute Cost"
           description="Monthly cost of per core at certain order sizes"
           tickFormatter={(xAxis) => xAxis.split(" ")[0]}
@@ -220,7 +220,7 @@ export function NetworkStats() {
           }}
         />
         <MultiLineChart
-          classname="max-md:col-span-2 max-md:row-span-2 content-center"
+          classname="max-xl:col-span-2 max-xl:row-span-2 content-center"
           title="Memory Cost"
           description="Monthly cost of per GB of memory at certain order sizes"
           tickFormatter={(xAxis) => xAxis}
@@ -291,7 +291,7 @@ export function NetworkStats() {
           }}
         />
         <MultiLineChart
-          classname="max-md:col-span-2 max-md:row-span-2 content-center"
+          classname="max-xl:col-span-2 max-xl:row-span-2 content-center"
           title="Storage Cost"
           description="Monthly cost of per GB of storage at certain order sizes"
           tickFormatter={(xAxis) => xAxis}
@@ -362,7 +362,7 @@ export function NetworkStats() {
           }}
         />
         <MultiLineChart
-          classname="max-md:col-span-2 max-md:row-span-2 content-center"
+          classname="max-xl:col-span-2 max-xl:row-span-2 content-center"
           title="Bandwidth Cost"
           description="Cost per GB of bandwidth at certain order sizes"
           tickFormatter={(xAxis) => xAxis}
@@ -459,7 +459,7 @@ export function NetworkStats() {
       </Category>
       <Category title="Consensus">
         <StackedAreaChart
-          classname="col-span-2 row-span-2"
+          classname="col-span-2 row-span-2 lg:max-xl:row-span-1 content-center"
           title="Network Health"
           description="Healthy Nodes vs Faulty Nodes"
           chartData={growth(config, (nodes) => {
@@ -497,7 +497,7 @@ export function NetworkStats() {
       </Category>
       <Category title="Tokennomics">
         <StackedAreaChart
-          classname="col-span-2 row-span-2 content-center"
+          classname="col-span-2 row-span-2 lg:max-xl:row-span-1 content-center"
           title="Token Utilization Velocity"
           description="OPEN tokens part of transactions"
           chartData={growth(config, (nodes) => {
@@ -618,7 +618,7 @@ function Category({
   return (
     <div className="flex flex-col gap-1">
       <span className="ml-1 text-lg font-semibold">{title}</span>
-      <div className="grid w-full auto-rows-auto grid-cols-4 gap-1 max-md:grid-cols-2">
+      <div className="grid w-full auto-rows-auto grid-cols-4 gap-1 max-lg:grid-cols-2">
         {children}
       </div>
     </div>
