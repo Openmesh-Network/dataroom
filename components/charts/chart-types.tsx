@@ -10,7 +10,7 @@ export type ChartData<T extends Properties> = {
 export type ChartConfig<T extends Properties> = {
   [property in keyof T]: {
     label: string
-    color: string
+    color?: string
   }
 }
 

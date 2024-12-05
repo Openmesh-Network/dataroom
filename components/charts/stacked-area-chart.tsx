@@ -24,7 +24,27 @@ export function StackedAreaChart<T extends Properties>(params: ChartParams<T>) {
         <CardDescription>{params.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={params.chartConfig}>
+        <ChartContainer
+          config={Object.keys(params.chartConfig)
+            .map((property, i) => {
+              return {
+                property: property as keyof typeof params.chartConfig,
+                value: {
+                  ...params.chartConfig[property],
+                  color:
+                    params.chartConfig[property].color ??
+                    `hsl(var(--chart-${i + 1}))`,
+                },
+              }
+            })
+            .reduce(
+              (prev, cur) => {
+                prev[cur.property] = cur.value
+                return prev
+              },
+              {} as typeof params.chartConfig,
+            )}
+        >
           <AreaChart
             accessibilityLayer
             data={params.chartData.map((data) => {

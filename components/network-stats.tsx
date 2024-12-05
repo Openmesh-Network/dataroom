@@ -102,19 +102,15 @@ export function NetworkStats() {
           chartConfig={{
             cpu: {
               label: "Cores",
-              color: "red",
             },
             memory: {
               label: "Memory (GB)",
-              color: "orange",
             },
             storage: {
               label: "Storage (GB)",
-              color: "green",
             },
             bandwidth: {
               label: "Bandwidth (GB)",
-              color: "blue",
             },
           }}
         />
@@ -203,19 +199,15 @@ export function NetworkStats() {
           chartConfig={{
             openmesh: {
               label: "Openmesh",
-              color: "blue",
             },
             aws: {
               label: "AWS",
-              color: "Orange",
             },
             gcp: {
               label: "GCP",
-              color: "Red",
             },
             azure: {
               label: "Azure",
-              color: "Green",
             },
           }}
         />
@@ -274,19 +266,15 @@ export function NetworkStats() {
           chartConfig={{
             openmesh: {
               label: "Openmesh",
-              color: "blue",
             },
             aws: {
               label: "AWS",
-              color: "Orange",
             },
             gcp: {
               label: "GCP",
-              color: "Red",
             },
             azure: {
               label: "Azure",
-              color: "Green",
             },
           }}
         />
@@ -345,19 +333,15 @@ export function NetworkStats() {
           chartConfig={{
             openmesh: {
               label: "Openmesh",
-              color: "blue",
             },
             aws: {
               label: "AWS",
-              color: "Orange",
             },
             gcp: {
               label: "GCP",
-              color: "Red",
             },
             azure: {
               label: "Azure",
-              color: "Green",
             },
           }}
         />
@@ -416,19 +400,15 @@ export function NetworkStats() {
           chartConfig={{
             openmesh: {
               label: "Openmesh",
-              color: "blue",
             },
             aws: {
               label: "AWS",
-              color: "Orange",
             },
             gcp: {
               label: "GCP",
-              color: "Red",
             },
             azure: {
               label: "Azure",
-              color: "Green",
             },
           }}
         />
@@ -513,11 +493,9 @@ export function NetworkStats() {
           chartConfig={{
             used: {
               label: "Part of a transaction",
-              color: "blue",
             },
             unused: {
               label: "Stale",
-              color: "orange",
             },
           }}
         />
