@@ -5,10 +5,18 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatNumber(number: number) {
-  const absNumber = Math.abs(number)
-  if (absNumber >= 1000) {
-    return (number / 1000).toFixed(2).replace(/\.0$/, "") + "k"
+export function formatNumber(number: number, type?: "GB" | "ratio") {
+  const thresholds = [1_000_000_000, 1_000_000, 1_000]
+  const postFixes = type === "GB" ? [" EB", " PB", " TB"] : ["B", "M", "K"]
+  let postFix = type === "GB" ? " GB" : ""
+  if (type !== "ratio") {
+    for (let i = 0; i < thresholds.length; i++) {
+      if (number > thresholds[i]) {
+        number /= thresholds[i]
+        postFix = postFixes[i]
+        break
+      }
+    }
   }
-  return number.toFixed(2)
+  return `${Number(number.toPrecision(3))}${postFix}`
 }

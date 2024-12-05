@@ -34,7 +34,7 @@ export default function RootLayout({
               <Header />
               <div className="flex bg-gray-50 max-md:flex-col">
                 <Sidebar />
-                <div className="container my-5 grow pl-3 max-md:my-0">
+                <div className="container my-5 grow pl-5 max-md:my-0">
                   {children}
                 </div>
               </div>
