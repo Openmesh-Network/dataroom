@@ -97,8 +97,8 @@ export function CloudVisualizer() {
           </linearGradient>
         </defs>
 
-        {/* Connection lines - Hidden on mobile */}
-        <g className="hidden md:block">
+        {/* Connection lines */}
+        <g>
           {xNodes.map((xNode, i) =>
             vmNodes.map((vm, j) => {
               if ((i + j) % 3 === 0) {
