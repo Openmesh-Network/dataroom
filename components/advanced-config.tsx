@@ -14,7 +14,9 @@ export function AdvancedConfig() {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Advanced Configuration</Button>
+      <Button onClick={() => setOpen(true)} className="text-white">
+        Advanced Configuration
+      </Button>
       <Dialog open={open} onOpenChange={() => setOpen(false)}>
         <DialogContent>
           <DialogHeader>
