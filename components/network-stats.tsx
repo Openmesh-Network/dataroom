@@ -45,6 +45,12 @@ export function NetworkStats() {
   const totalStakedValue = config.cost.open * totalTokensStaked
 
   const totalNetworkValue = networkValue + totalStakedValue
+  const totalCloudValue =
+    cloudValue +
+    totalNetwork(
+      config,
+      config.cost.open * config.blockchain.requirement.proofOfResource,
+    )
   const dataValueIndex =
     cloudStorage * (config.web3DataPercentage / 100) * config.cost.web3Data
 
@@ -153,19 +159,19 @@ export function NetworkStats() {
         />
         <SingleNumber
           description="Total Network Value (TVN)"
-          value={`${formatNumber(totalNetworkValue)} USD/yr`}
+          value={`${formatNumber(totalNetworkValue)} USD`}
+        />
+        <SingleNumber
+          description="Total Cloud Value (TCV)"
+          value={`${formatNumber(totalCloudValue)} USD`}
         />
         <SingleNumber
           description="Data Value Index (DVI)"
           value={`${formatNumber(dataValueIndex)} USD`}
         />
         <SingleNumber
-          description="Total Cloud Revenue (TCR)"
+          description="Network Revenue (NR)"
           value={`${formatNumber(cloudValue)} USD/yr`}
-        />
-        <SingleNumber
-          description="Marketcap to Network Value ratio (MC/TVN)"
-          value={`${formatNumber(marketcapToNetworkValue)}`}
         />
         <StackedBarChart
           classname="col-span-2 row-span-2 lg:max-xl:row-span-1 content-center"
@@ -387,6 +393,10 @@ export function NetworkStats() {
               label: "Azure",
             },
           }}
+        />
+        <SingleNumber
+          description="Marketcap to Network Value ratio (MC/TVN)"
+          value={`${formatNumber(marketcapToNetworkValue)}`}
         />
         <SingleNumber
           description="Economic Viability of Node Operators (EVNO)"
