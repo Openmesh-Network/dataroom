@@ -70,7 +70,7 @@ export type ConfigContextData = {
 }
 const defaultConfigContextData: ConfigContextData = {
   nonce: 0,
-  numberOfXnodes: 30_000,
+  numberOfXnodes: 3000,
   xnodeSize: {
     cpu: 8, // cores
     memory: 16, // GB

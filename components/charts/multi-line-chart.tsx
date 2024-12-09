@@ -23,7 +23,9 @@ export function MultiLineChart<T extends Properties>(params: ChartParams<T>) {
     <Card className={params.classname}>
       <CardHeader>
         <CardTitle>{params.title}</CardTitle>
-        <CardDescription>{params.description}</CardDescription>
+        {params.description && (
+          <CardDescription>{params.description}</CardDescription>
+        )}
       </CardHeader>
       <CardContent>
         <ChartContainer

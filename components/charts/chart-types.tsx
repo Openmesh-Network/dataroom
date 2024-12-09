@@ -16,7 +16,7 @@ export type ChartConfig<T extends Properties> = {
 
 export type ChartParams<T extends Properties> = {
   title: string
-  description: string
+  description?: string
   chartData: ChartData<T>
   chartConfig: ChartConfig<T>
   classname?: string

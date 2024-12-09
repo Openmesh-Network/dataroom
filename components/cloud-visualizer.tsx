@@ -76,9 +76,6 @@ export function CloudVisualizer() {
 
   return (
     <div className="flex flex-col items-center justify-center rounded-lg border bg-white px-0">
-      <span className="w-full pl-5 pt-3 text-2xl font-semibold">
-        Openmesh Network Visualized
-      </span>
       <svg
         width="100%"
         height="100%"
