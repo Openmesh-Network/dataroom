@@ -1,4 +1,5 @@
 import { cn, formatNumber } from "@/lib/utils"
+import { useMediaQuery } from "@uidotdev/usehooks"
 
 import { useConfig } from "./config-provider"
 
@@ -36,10 +37,14 @@ export function CloudCabal() {
     },
   ]
   const max = Math.max(...providers.map((p) => p.data.value))
+  const lgXlDevice = useMediaQuery(
+    "(min-width : 1024px) and (max-width : 1280px)",
+  )
+  const maxSize = lgXlDevice ? 70 : 100
 
   return (
     <div className="flex h-full w-full flex-col rounded-md border bg-white">
-      <span className="pt-4 text-center text-xl font-semibold tracking-tighter">
+      <span className="pt-4 text-center text-xl font-semibold tracking-tighter max-xl:lg:text-lg">
         Kill the Cloud Cabal
       </span>
       <div className="grow place-content-center">
@@ -55,8 +60,8 @@ export function CloudCabal() {
                   provider.color,
                 )}
                 style={{
-                  width: (100 * provider.data.value) / max,
-                  height: (100 * provider.data.value) / max,
+                  width: (maxSize * provider.data.value) / max,
+                  height: (maxSize * provider.data.value) / max,
                 }}
               />
             </div>
@@ -66,10 +71,12 @@ export function CloudCabal() {
               key={i}
               className="flex flex-col place-content-center place-items-center"
             >
-              <span className="text-xl">
+              <span className="text-center text-xl max-xl:lg:text-base">
                 {formatNumber(provider.data.value, "GB")}
               </span>
-              <span>{provider.xAxis}</span>
+              <span className="text-center max-xl:lg:text-xs">
+                {provider.xAxis}
+              </span>
             </div>
           ))}
         </div>

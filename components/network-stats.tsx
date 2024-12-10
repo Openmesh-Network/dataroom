@@ -167,7 +167,7 @@ export function NetworkStats() {
           />
         </div>
         <Gauge
-          classname="max-lg:col-span-2"
+          classname="content-center max-lg:col-span-2"
           title="Economic Breach Resistance (EBR)"
           chartData={[
             {
@@ -185,7 +185,7 @@ export function NetworkStats() {
           max={100_000_000}
         />
         <Gauge
-          classname="max-lg:col-span-2"
+          classname="content-center max-lg:col-span-2"
           title="Minimum Viable Decentralization (MVD)"
           chartData={[
             {
@@ -287,10 +287,10 @@ function SingleNumber({
   return (
     <Card className={cn("content-center px-2 py-8", className)}>
       <CardHeader className="place-items-center">
-        <CardTitle className="flex gap-1 text-center text-2xl">
+        <CardTitle className="flex gap-1 text-center text-2xl max-xl:lg:text-xl">
           {value}
         </CardTitle>
-        <CardDescription className="text-center text-base">
+        <CardDescription className="text-center text-base max-xl:lg:text-sm">
           {description}
         </CardDescription>
       </CardHeader>

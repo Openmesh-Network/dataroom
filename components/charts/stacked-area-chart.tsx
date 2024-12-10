@@ -19,8 +19,8 @@ import { ChartParams, Properties } from "./chart-types"
 export function StackedAreaChart<T extends Properties>(params: ChartParams<T>) {
   return (
     <Card className={params.classname}>
-      <CardHeader>
-        <CardTitle>{params.title}</CardTitle>
+      <CardHeader className="pt-4">
+        <CardTitle className="max-xl:lg:text-lg">{params.title}</CardTitle>
         {params.description && (
           <CardDescription>{params.description}</CardDescription>
         )}

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card"
 import { ChartContainer } from "@/components/ui/chart"
 import { formatNumber } from "@/lib/utils"
+import { useMediaQuery } from "@uidotdev/usehooks"
 import {
   Label,
   PolarGrid,
@@ -22,15 +23,21 @@ import { ChartParams } from "./chart-types"
 export function Gauge<T extends { value: number }>(
   params: ChartParams<T> & { max: number },
 ) {
+  const lgXlDevice = useMediaQuery(
+    "(min-width : 1024px) and (max-width : 1280px)",
+  )
+
   return (
     <Card className={params.classname}>
-      <CardHeader className="pb-0">
-        <CardTitle className="text-center text-xl">{params.title}</CardTitle>
+      <CardHeader className="p-1 pt-4">
+        <CardTitle className="text-center text-xl max-xl:lg:text-base">
+          {params.title}
+        </CardTitle>
         {params.description && (
           <CardDescription>{params.description}</CardDescription>
         )}
       </CardHeader>
-      <CardContent className="pb-0">
+      <CardContent className="p-0">
         <ChartContainer
           config={params.chartConfig}
           className="mx-auto lg:aspect-square"
@@ -45,8 +52,8 @@ export function Gauge<T extends { value: number }>(
             })}
             startAngle={90}
             endAngle={90 - (360 * params.chartData[0].data.value) / params.max}
-            innerRadius={60}
-            outerRadius={100}
+            innerRadius={lgXlDevice ? 40 : 60}
+            outerRadius={lgXlDevice ? 80 : 100}
           >
             <PolarGrid
               gridType="circle"
@@ -70,7 +77,7 @@ export function Gauge<T extends { value: number }>(
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-3xl font-bold"
+                          className="fill-foreground text-3xl font-bold max-xl:lg:text-lg"
                         >
                           {formatNumber(params.chartData[0].data.value)}
                         </tspan>
