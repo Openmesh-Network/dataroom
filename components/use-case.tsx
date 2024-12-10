@@ -25,12 +25,12 @@ export function UseCase({ title, icon, cpu, memory, storage }: UseCaseParams) {
   return (
     <div className="flex flex-col place-content-center place-items-center gap-1">
       <div className="flex place-items-center gap-1">
-        {icon("size-6")}
-        <span className="text-2xl font-semibold">
+        {icon("size-4")}
+        <span className="text-lg font-semibold">
           {formatNumber(instances)}
         </span>
       </div>
-      <span className="text-center">{title}</span>
+      <span className="text-center text-xs">{title}</span>
     </div>
   )
 }

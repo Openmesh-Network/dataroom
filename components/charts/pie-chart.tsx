@@ -20,7 +20,7 @@ export function PieChart<T extends Properties>(params: ChartParams<T>) {
   return (
     <Card className={params.classname}>
       <CardHeader className="pb-0">
-        <CardTitle className="text-center">{params.title}</CardTitle>
+        <CardTitle className="text-center text-xl">{params.title}</CardTitle>
         {params.description && (
           <CardDescription>{params.description}</CardDescription>
         )}

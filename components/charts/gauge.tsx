@@ -25,7 +25,7 @@ export function Gauge<T extends { value: number }>(
   return (
     <Card className={params.classname}>
       <CardHeader className="pb-0">
-        <CardTitle className="text-center">{params.title}</CardTitle>
+        <CardTitle className="text-center text-xl">{params.title}</CardTitle>
         {params.description && (
           <CardDescription>{params.description}</CardDescription>
         )}
