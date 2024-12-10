@@ -45,7 +45,7 @@ export function CloudCabal() {
       <span className="pt-4 text-center text-xl font-semibold tracking-tighter max-xl:lg:text-lg">
         Kill the Cloud Cabal
       </span>
-      <div className="grow place-content-center">
+      <div className="grow place-content-center pt-2">
         <div className="grid grid-cols-4 gap-2">
           {providers.map((provider, i) => (
             <div

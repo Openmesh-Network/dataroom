@@ -33,7 +33,7 @@ export function PieChart<T extends Properties>(params: ChartParams<T>) {
       <CardContent className="p-0">
         <ChartContainer
           config={params.chartConfig}
-          className="mx-auto aspect-square"
+          className="mx-auto lg:aspect-square"
         >
           <RechartsPieChart>
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
