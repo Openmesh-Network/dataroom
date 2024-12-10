@@ -8,8 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { ChartContainer } from "@/components/ui/chart"
+import { useIsLgXlDevice } from "@/hooks/useIsLgXlDevice"
 import { formatNumber } from "@/lib/utils"
-import { useMediaQuery } from "@uidotdev/usehooks"
 import {
   Label,
   PolarGrid,
@@ -23,9 +23,7 @@ import { ChartParams } from "./chart-types"
 export function Gauge<T extends { value: number }>(
   params: ChartParams<T> & { max: number },
 ) {
-  const lgXlDevice = useMediaQuery(
-    "(min-width : 1024px) and (max-width : 1280px)",
-  )
+  const isLgXlDevice = useIsLgXlDevice()
 
   return (
     <Card className={params.classname}>
@@ -52,8 +50,8 @@ export function Gauge<T extends { value: number }>(
             })}
             startAngle={90}
             endAngle={90 - (360 * params.chartData[0].data.value) / params.max}
-            innerRadius={lgXlDevice ? 40 : 60}
-            outerRadius={lgXlDevice ? 80 : 100}
+            innerRadius={isLgXlDevice ? 40 : 60}
+            outerRadius={isLgXlDevice ? 80 : 100}
           >
             <PolarGrid
               gridType="circle"

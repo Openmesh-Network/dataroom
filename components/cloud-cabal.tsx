@@ -1,5 +1,5 @@
+import { useIsLgXlDevice } from "@/hooks/useIsLgXlDevice"
 import { cn, formatNumber } from "@/lib/utils"
-import { useMediaQuery } from "@uidotdev/usehooks"
 
 import { useConfig } from "./config-provider"
 
@@ -37,10 +37,8 @@ export function CloudCabal() {
     },
   ]
   const max = Math.max(...providers.map((p) => p.data.value))
-  const lgXlDevice = useMediaQuery(
-    "(min-width : 1024px) and (max-width : 1280px)",
-  )
-  const maxSize = lgXlDevice ? 70 : 100
+  const isLgXlDevice = useIsLgXlDevice()
+  const maxSize = isLgXlDevice ? 70 : 100
 
   return (
     <div className="flex h-full w-full flex-col rounded-md border bg-white">

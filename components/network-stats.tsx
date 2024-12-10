@@ -14,11 +14,19 @@ import {
 } from "lucide-react"
 
 import { Gauge } from "./charts/gauge"
+import { MultiLineChart } from "./charts/multi-line-chart"
 import { PieChart } from "./charts/pie-chart"
 import { CloudCabal } from "./cloud-cabal"
 import { CloudVisualizer } from "./cloud-visualizer"
 import { ConfigContextData, useConfig } from "./config-provider"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion"
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card"
+import { Separator } from "./ui/separator"
 import { UseCase } from "./use-case"
 
 export function NetworkStats() {
@@ -246,6 +254,210 @@ export function NetworkStats() {
           }}
         />
       </Category>
+      <Accordion type="multiple" className="rounded-md border bg-white">
+        <AccordionItem value="Openmesh vs Others" className="px-4">
+          <AccordionTrigger>Openmesh vs Others</AccordionTrigger>
+          <AccordionContent>
+            <Separator />
+            <div className="grid grid-cols-2 gap-5 pt-2 max-lg:grid-cols-1">
+              <MultiLineChart
+                classname="content-center border-0"
+                title="Storage Cost"
+                description="Monthly cost in USD per TB of storage at certain order sizes"
+                tickFormatter={(xAxis) => xAxis}
+                chartData={[
+                  {
+                    xAxis: "1GB",
+                    data: {
+                      openmesh: 0.006,
+                      aws: 0.023,
+                      gcp: 0.03,
+                      azure: 0.018,
+                    },
+                  },
+                  {
+                    xAxis: "100GB",
+                    data: {
+                      openmesh: 0.006,
+                      aws: 0.023,
+                      gcp: 0.03,
+                      azure: 0.018,
+                    },
+                  },
+                  {
+                    xAxis: "50TB",
+                    data: {
+                      openmesh: 0.006,
+                      aws: 0.023,
+                      gcp: 0.03,
+                      azure: 0.018,
+                    },
+                  },
+                  {
+                    xAxis: "500TB",
+                    data: {
+                      openmesh: 0.006,
+                      aws: 0.022,
+                      gcp: 0.03,
+                      azure: 0.018,
+                    },
+                  },
+                ].map((datapoint) => {
+                  return {
+                    ...datapoint,
+                    data: {
+                      openmesh: datapoint.data.openmesh * 1000,
+                      aws: datapoint.data.aws * 1000,
+                      gcp: datapoint.data.gcp * 1000,
+                      azure: datapoint.data.azure * 1000,
+                    },
+                  }
+                })}
+                chartConfig={{
+                  openmesh: {
+                    label: "Openmesh",
+                  },
+                  aws: {
+                    label: "AWS",
+                  },
+                  gcp: {
+                    label: "GCP",
+                  },
+                  azure: {
+                    label: "Azure",
+                  },
+                }}
+              />
+              <MultiLineChart
+                classname="content-center border-0"
+                title="Compute Cost"
+                description="Monthly cost per core at certain order sizes (single machine)"
+                tickFormatter={(xAxis) => xAxis.split(" ")[0]}
+                chartData={[
+                  {
+                    xAxis: "1 Cores",
+                    data: {
+                      openmesh: 2.5,
+                      aws: 3.89,
+                      gcp: 61.24,
+                      azure: 7.3,
+                    },
+                  },
+                  {
+                    xAxis: "4 Cores",
+                    data: {
+                      openmesh: 14 / 4,
+                      aws: 124.42 / 4,
+                      gcp: 122.47 / 4,
+                      azure: 124.1 / 4,
+                    },
+                  },
+                  {
+                    xAxis: "16 Cores",
+                    data: {
+                      openmesh: 102 / 16,
+                      aws: 570.24 / 16,
+                      gcp: 489.89 / 16,
+                      azure: 494.94 / 16,
+                    },
+                  },
+                  {
+                    xAxis: "96 Cores",
+                    data: {
+                      openmesh: 3840.0 / 96,
+                      aws: 3856.9 / 96,
+                      gcp: 2939.34 / 96,
+                      azure: 3539.04 / 96,
+                    },
+                  },
+                ]}
+                chartConfig={{
+                  openmesh: {
+                    label: "Openmesh",
+                  },
+                  aws: {
+                    label: "AWS",
+                  },
+                  gcp: {
+                    label: "GCP",
+                  },
+                  azure: {
+                    label: "Azure",
+                  },
+                }}
+              />
+              <MultiLineChart
+                classname="content-center border-0"
+                title="Data Retrieval Cost"
+                description="Cost in USD per TB of bandwidth at certain order sizes"
+                tickFormatter={(xAxis) => xAxis}
+                chartData={[
+                  {
+                    xAxis: "1GB",
+                    data: {
+                      openmesh: 0.0,
+                      aws: 0.02,
+                      gcp: 0.0,
+                      azure: 0.0,
+                    },
+                  },
+                  {
+                    xAxis: "100GB",
+                    data: {
+                      openmesh: 0.0,
+                      aws: 0.02,
+                      gcp: 0.0,
+                      azure: 0.0,
+                    },
+                  },
+                  {
+                    xAxis: "50TB",
+                    data: {
+                      openmesh: 0.0,
+                      aws: 0.02,
+                      gcp: 0.0,
+                      azure: 0.0,
+                    },
+                  },
+                  {
+                    xAxis: "500TB",
+                    data: {
+                      openmesh: 0.0,
+                      aws: 0.02,
+                      gcp: 0.0,
+                      azure: 0.0,
+                    },
+                  },
+                ].map((datapoint) => {
+                  return {
+                    ...datapoint,
+                    data: {
+                      openmesh: datapoint.data.openmesh * 1000,
+                      aws: datapoint.data.aws * 1000,
+                      gcp: datapoint.data.gcp * 1000,
+                      azure: datapoint.data.azure * 1000,
+                    },
+                  }
+                })}
+                chartConfig={{
+                  openmesh: {
+                    label: "Openmesh",
+                  },
+                  aws: {
+                    label: "AWS",
+                  },
+                  gcp: {
+                    label: "GCP",
+                  },
+                  azure: {
+                    label: "Azure",
+                  },
+                }}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   )
 }

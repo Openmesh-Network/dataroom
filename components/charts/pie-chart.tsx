@@ -12,15 +12,13 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { useMediaQuery } from "@uidotdev/usehooks"
+import { useIsLgXlDevice } from "@/hooks/useIsLgXlDevice"
 import { Pie, PieChart as RechartsPieChart } from "recharts"
 
 import { ChartParams, Properties } from "./chart-types"
 
 export function PieChart<T extends Properties>(params: ChartParams<T>) {
-  const lgXlDevice = useMediaQuery(
-    "(min-width : 1024px) and (max-width : 1280px)",
-  )
+  const isLgXlDevice = useIsLgXlDevice()
 
   return (
     <Card className={params.classname}>
@@ -49,8 +47,8 @@ export function PieChart<T extends Properties>(params: ChartParams<T>) {
               })}
               dataKey="value"
               nameKey="xAxis"
-              innerRadius={lgXlDevice ? 30 : 50}
-              outerRadius={lgXlDevice ? 40 : 70}
+              innerRadius={isLgXlDevice ? 30 : 50}
+              outerRadius={isLgXlDevice ? 40 : 70}
             />
           </RechartsPieChart>
         </ChartContainer>
