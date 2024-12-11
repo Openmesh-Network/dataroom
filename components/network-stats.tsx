@@ -504,8 +504,10 @@ function SingleNumber({
   value: string
   description: string
   className?: string
-  tooltip?: string
-}) {
+  tooltip?: string | {
+    explanation?: string
+    formula?: string
+  }}) {
   return (
     <Card className={cn("content-center px-2 py-8 relative", className)}>
       {tooltip && (
