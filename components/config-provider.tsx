@@ -4,15 +4,23 @@ import { createContext, useContext, useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useDebounce } from "@uidotdev/usehooks"
 
+export interface XnodeSize {
+  cpu: number
+  memory: number
+  storage: number
+  bandwidth: number
+  electricity: number
+}
+
 export type ConfigContextData = {
   nonce: number
   numberOfXnodes: number
-  xnodeSize: {
-    cpu: number
-    memory: number
-    storage: number
-    bandwidth: number
-    electricity: number
+  xnodeSize: XnodeSize
+  xnodeSizeSlider: {
+    small: XnodeSize
+    medium: XnodeSize
+    large: XnodeSize
+    xLarge: XnodeSize
   }
   xnodeAllocationPercentage: number
   cost: {
@@ -78,12 +86,42 @@ const defaultConfigContextData: ConfigContextData = {
     bandwidth: 1000, // GB
     electricity: 30, // W
   },
+  xnodeSizeSlider: {
+    small: {
+      cpu: 2,
+      memory: 4,
+      storage: 80,
+      bandwidth: 10,
+      electricity: 30,
+    },
+    medium: {
+      cpu: 4,
+      memory: 8,
+      storage: 160,
+      bandwidth: 100,
+      electricity: 30,
+    },
+    large: {
+      cpu: 8,
+      memory: 16,
+      storage: 320,
+      bandwidth: 1000,
+      electricity: 30,
+    },
+    xLarge: {
+      cpu: 12,
+      memory: 24,
+      storage: 640,
+      bandwidth: 10_000,
+      electricity: 30,
+    },
+  },
   xnodeAllocationPercentage: 15, // %
   cost: {
-    cpu: 132.0251, // USD per core per month
-    memory: 43.9311, // USD per gb per month
-    storage: 0.04, // USD per gb per month
-    bandwidth: 0.09, // USD per gb
+    cpu: 20, // USD per core per month
+    memory: 10, // USD per gb per month
+    storage: 0.25, // USD per gb per month
+    bandwidth: 0.1, // USD per gb
     electricity: 0.13, // USD per kWh
     open: 0.21, // USD
     xnode: 1500, // USD

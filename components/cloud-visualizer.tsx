@@ -40,11 +40,12 @@ const CENTER_Y = CANVAS_HEIGHT / 2
 export function CloudVisualizer() {
   const config = useConfig()
 
-  // const nodeCount = Math.max(
-  //   1,
-  //   Math.min(Math.round(10 * Math.log(config.numberOfXnodes)), 150),
-  // )
-  const nodeCount = Math.min(config.numberOfXnodes, 100)
+  const nodeCount = Math.max(
+    1,
+    config.numberOfXnodes <= 20
+      ? config.numberOfXnodes
+      : Math.min(Math.round(10 * Math.log(config.numberOfXnodes)), 150),
+  )
   const allocation = config.xnodeAllocationPercentage
 
   const ringThickness = round(20 + (nodeCount * allocation) / 100)

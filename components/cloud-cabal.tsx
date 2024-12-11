@@ -18,21 +18,21 @@ export function CloudCabal() {
       xAxis: "AWS",
       color: "bg-green-500",
       data: {
-        value: 70_000_000,
+        value: 800_000_000,
       },
     },
     {
       xAxis: "GCP",
       color: "bg-yellow-500",
       data: {
-        value: 30_000_000,
+        value: 500_000_000,
       },
     },
     {
       xAxis: "Azure",
       color: "bg-orange-500",
       data: {
-        value: 50_000_000,
+        value: 250_000_000,
       },
     },
   ]

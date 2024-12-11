@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { useConfig, useSetConfig } from "./config-provider"
+import { useConfig, useSetConfig, XnodeSize } from "./config-provider"
 import { NumericInput } from "./numeric-input"
 import { Button } from "./ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"
@@ -35,57 +35,69 @@ export function AdvancedConfig() {
                 }
               />
               <Separator />
-              <NumericInput
-                title="Average Xnode Core Count"
-                value={config.xnodeSize.cpu}
-                onChange={(v) =>
+              <XnodeSizeConfiguration
+                prefix="Average"
+                xnodeSize={config.xnodeSize}
+                setXnodeSize={(xnodeSize) =>
                   setConfig({
                     ...config,
-                    xnodeSize: { ...config.xnodeSize, cpu: v },
+                    xnodeSize: xnodeSize,
                   })
                 }
               />
               <Separator />
-              <NumericInput
-                title="Average Xnode Memory in GB"
-                value={config.xnodeSize.memory}
-                onChange={(v) =>
+              <XnodeSizeConfiguration
+                prefix="Small"
+                xnodeSize={config.xnodeSizeSlider.small}
+                setXnodeSize={(xnodeSize) =>
                   setConfig({
                     ...config,
-                    xnodeSize: { ...config.xnodeSize, memory: v },
+                    xnodeSizeSlider: {
+                      ...config.xnodeSizeSlider,
+                      small: xnodeSize,
+                    },
                   })
                 }
               />
               <Separator />
-              <NumericInput
-                title="Average Xnode Storage in GB"
-                value={config.xnodeSize.storage}
-                onChange={(v) =>
+              <XnodeSizeConfiguration
+                prefix="Medium"
+                xnodeSize={config.xnodeSizeSlider.medium}
+                setXnodeSize={(xnodeSize) =>
                   setConfig({
                     ...config,
-                    xnodeSize: { ...config.xnodeSize, storage: v },
+                    xnodeSizeSlider: {
+                      ...config.xnodeSizeSlider,
+                      medium: xnodeSize,
+                    },
                   })
                 }
               />
               <Separator />
-              <NumericInput
-                title="Average Xnode Bandwidth in GB"
-                value={config.xnodeSize.bandwidth}
-                onChange={(v) =>
+              <XnodeSizeConfiguration
+                prefix="Large"
+                xnodeSize={config.xnodeSizeSlider.large}
+                setXnodeSize={(xnodeSize) =>
                   setConfig({
                     ...config,
-                    xnodeSize: { ...config.xnodeSize, bandwidth: v },
+                    xnodeSizeSlider: {
+                      ...config.xnodeSizeSlider,
+                      large: xnodeSize,
+                    },
                   })
                 }
               />
               <Separator />
-              <NumericInput
-                title="Average Xnode Electricity usage in W"
-                value={config.xnodeSize.electricity}
-                onChange={(v) =>
+              <XnodeSizeConfiguration
+                prefix="X-Large"
+                xnodeSize={config.xnodeSizeSlider.xLarge}
+                setXnodeSize={(xnodeSize) =>
                   setConfig({
                     ...config,
-                    xnodeSize: { ...config.xnodeSize, electricity: v },
+                    xnodeSizeSlider: {
+                      ...config.xnodeSizeSlider,
+                      xLarge: xnodeSize,
+                    },
                   })
                 }
               />
@@ -429,6 +441,50 @@ export function AdvancedConfig() {
           </ScrollArea>
         </DialogContent>
       </Dialog>
+    </>
+  )
+}
+
+function XnodeSizeConfiguration({
+  prefix,
+  xnodeSize,
+  setXnodeSize,
+}: {
+  prefix: string
+  xnodeSize: XnodeSize
+  setXnodeSize: (xnodeSize: XnodeSize) => void
+}) {
+  return (
+    <>
+      <NumericInput
+        title={`${prefix} Xnode Core Count`}
+        value={xnodeSize.cpu}
+        onChange={(v) => setXnodeSize({ ...xnodeSize, cpu: v })}
+      />
+      <Separator />
+      <NumericInput
+        title={`${prefix} Xnode Memory in GB`}
+        value={xnodeSize.memory}
+        onChange={(v) => setXnodeSize({ ...xnodeSize, memory: v })}
+      />
+      <Separator />
+      <NumericInput
+        title={`${prefix} Xnode Storage in GB`}
+        value={xnodeSize.storage}
+        onChange={(v) => setXnodeSize({ ...xnodeSize, storage: v })}
+      />
+      <Separator />
+      <NumericInput
+        title={`${prefix} Xnode Bandwidth in GB`}
+        value={xnodeSize.bandwidth}
+        onChange={(v) => setXnodeSize({ ...xnodeSize, bandwidth: v })}
+      />
+      <Separator />
+      <NumericInput
+        title={`${prefix} Xnode Electricity usage in W`}
+        value={xnodeSize.electricity}
+        onChange={(v) => setXnodeSize({ ...xnodeSize, electricity: v })}
+      />
     </>
   )
 }
