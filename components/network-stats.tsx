@@ -87,9 +87,12 @@ export function NetworkStats() {
       <SingleNumber
           description="Total Network Value (TVN)"
           value={`${formatNumber(totalNetworkValue)} USD`}
-          tooltip={`The estimated economic value of the entire network.
-
-            TVN = Staked Tokens + Data Storage + Compute Capacity + Contributions`}
+          tooltip={{
+            explanation:
+              "Total Network Value represents the combined value of all network resources and staked tokens in the system.",
+            formula:
+              "TVN = Staked Tokens + Data Storage + Compute Capacity + Contributions",
+          }}
         />
         <SingleNumber
           description="Marketcap to Network Value ratio (MC/TVN)"
