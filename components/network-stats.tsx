@@ -499,7 +499,7 @@ function SingleNumber({
   return (
     <Card className={cn("content-center px-2 py-8", className)}>
       <CardHeader className="place-items-center">
-        <CardTitle className="flex gap-1 text-center text-2xl max-xl:lg:text-xl">
+        <CardTitle className="flex gap-1 text-center text-2xl max-xl:lg:text-lg">
           {value}
         </CardTitle>
         <CardDescription className="text-center text-base max-xl:lg:text-sm">
