@@ -591,107 +591,107 @@ export function NetworkStats() {
             classname="content-center"
             title="Resource Contribution Equality Index (RCEI)"
             tickFormatter={(x) => x}
-            description=""
+            description="Amount of nodes allocating a certain percentage"
             chartData={[
               {
                 xAxis: "0-5%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.02,
+                  xnodes: config.numberOfXnodes * 0.02,
                 },
               },
               {
                 xAxis: "5-7%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.04,
+                  xnodes: config.numberOfXnodes * 0.04,
                 },
               },
               {
                 xAxis: "7-9%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.12,
+                  xnodes: config.numberOfXnodes * 0.12,
                 },
               },
               {
                 xAxis: "9-10%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.18,
+                  xnodes: config.numberOfXnodes * 0.18,
                 },
               },
               {
                 xAxis: "10-11%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.18,
+                  xnodes: config.numberOfXnodes * 0.18,
                 },
               },
               {
                 xAxis: "11-13%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.12,
+                  xnodes: config.numberOfXnodes * 0.12,
                 },
               },
               {
                 xAxis: "13-15%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.04,
+                  xnodes: config.numberOfXnodes * 0.04,
                 },
               },
               {
                 xAxis: "15-20%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.02,
+                  xnodes: config.numberOfXnodes * 0.02,
                 },
               },
               {
                 xAxis: "20-30%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.015,
+                  xnodes: config.numberOfXnodes * 0.015,
                 },
               },
               {
                 xAxis: "30-40%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.01,
+                  xnodes: config.numberOfXnodes * 0.01,
                 },
               },
               {
                 xAxis: "40-50%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.008,
+                  xnodes: config.numberOfXnodes * 0.008,
                 },
               },
               {
                 xAxis: "50-60%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.007,
+                  xnodes: config.numberOfXnodes * 0.007,
                 },
               },
               {
                 xAxis: "60-70%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.005,
+                  xnodes: config.numberOfXnodes * 0.005,
                 },
               },
               {
                 xAxis: "70-80%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.005,
+                  xnodes: config.numberOfXnodes * 0.005,
                 },
               },
               {
                 xAxis: "80-90%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.1,
+                  xnodes: config.numberOfXnodes * 0.1,
                 },
               },
               {
                 xAxis: "90-100%",
                 data: {
-                  contributions: config.numberOfXnodes * 0.12,
+                  xnodes: config.numberOfXnodes * 0.12,
                 },
               },
             ]}
             chartConfig={{
-              contributions: { label: "Contributions" },
+              xnodes: { label: "Xnodes" },
             }}
           />
         </Section>
