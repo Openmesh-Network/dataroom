@@ -518,7 +518,7 @@ export function NetworkStats() {
           <MultiLineChart
             classname="content-center"
             title="Economic Viability of Node Operators (EVNO)"
-            description="Monthly Profit Percentage of Buying an Xnode"
+            description="Monthly profit percentage achieved by purchasing an Xnode"
             chartData={growth(config, (nodes) => {
               const validatorRevenue =
                 (config.blockchain.tokenSupply.total / nodes) *
@@ -551,7 +551,7 @@ export function NetworkStats() {
           <MultiLineChart
             classname="content-center"
             title="Fault Tolerance Threshold (FTT)"
-            description="Nodes require to attack the network"
+            description="Nodes required to attack the network"
             chartData={growth(config, (nodes) => {
               const networkTakeoverNodeThreshold = Math.round(
                 nodes *
@@ -573,7 +573,7 @@ export function NetworkStats() {
           <MultiLineChart
             classname="content-center"
             title="Consensus Finalization Time (CFT)"
-            description="Time it takes for the network to reach consensus (in seconds)"
+            description="Time it takes the network to reach consensus (in seconds)"
             chartData={growth(config, (nodes) => {
               const cft =
                 config.blockchain.consensus.finalizationTime.base +
