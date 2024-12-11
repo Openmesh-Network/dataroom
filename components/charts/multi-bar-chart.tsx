@@ -14,11 +14,11 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import { ChartParams, Properties } from "./chart-types"
 
-export function MultiLineChart<T extends Properties>(params: ChartParams<T>) {
+export function MultiBarChart<T extends Properties>(params: ChartParams<T>) {
   return (
     <Card className={params.classname}>
       <CardHeader className="pt-4">
@@ -49,41 +49,38 @@ export function MultiLineChart<T extends Properties>(params: ChartParams<T>) {
               {} as typeof params.chartConfig,
             )}
         >
-          <LineChart
+          <BarChart
             accessibilityLayer
             data={params.chartData.map((data) => {
               return { xAxis: data.xAxis, ...data.data }
             })}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
           >
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="xAxis"
               tickLine={false}
+              tickMargin={10}
               axisLine={false}
-              tickMargin={8}
               tickFormatter={(value) =>
                 params.tickFormatter?.(value) ?? value.slice(0, 3)
               }
             />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="dashed" />}
+            />
             {Object.keys(params.chartConfig).length > 1 && (
               <ChartLegend content={<ChartLegendContent />} />
             )}
             {Object.keys(params.chartConfig).map((key, i) => (
-              <Line
+              <Bar
                 key={i}
                 dataKey={`${key}`}
-                type="monotone"
-                stroke={`var(--color-${key})`}
-                strokeWidth={2}
-                dot={true}
+                fill={`var(--color-${key})`}
+                radius={4}
               />
             ))}
-          </LineChart>
+          </BarChart>
         </ChartContainer>
       </CardContent>
     </Card>

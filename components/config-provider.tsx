@@ -39,10 +39,17 @@ export type ConfigContextData = {
     requirement: {
       proofOfStake: number
       proofOfResource: number
+      minimumDecentralizedBreachResistance: number
     }
     rewards: {
-      validatorPercentage: number
-      earlyValidatorBonus: number
+      validator: {
+        percentage: number
+        period: number
+      }
+      earlyValidator: {
+        percentage: number
+        period: number
+      }
     }
     tokenSupply: {
       circulating: number
@@ -133,10 +140,17 @@ const defaultConfigContextData: ConfigContextData = {
     requirement: {
       proofOfStake: 10_000, // OPEN
       proofOfResource: 15_000, // OPEN
+      minimumDecentralizedBreachResistance: 100_000_000, // USD
     },
     rewards: {
-      validatorPercentage: 20, // %
-      earlyValidatorBonus: 2, // %
+      validator: {
+        percentage: 20, // %
+        period: 120, // months
+      },
+      earlyValidator: {
+        percentage: 2, // %
+        period: 18, // months
+      },
     },
     tokenSupply: {
       circulating: 30_000_000, // OPEN
