@@ -10,6 +10,7 @@ import {
   Gamepad2,
   Globe,
   Grape,
+  Info,
   Server,
 } from "lucide-react"
 
@@ -28,6 +29,7 @@ import {
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card"
 import { Separator } from "./ui/separator"
 import { UseCase } from "./use-case"
+import { SimpleTooltip } from "./SimpleTooltip"
 
 export function NetworkStats() {
   const config = useConfig()
@@ -82,9 +84,15 @@ export function NetworkStats() {
   return (
     <div className="flex flex-col gap-1">
       <Category>
-        <SingleNumber
+      <SingleNumber
           description="Total Network Value (TVN)"
           value={`${formatNumber(totalNetworkValue)} USD`}
+          tooltip={{
+            explanation:
+              "Total Network Value represents the combined value of all network resources and staked tokens in the system.",
+            formula:
+              "TVN = Staked Tokens + Data Storage + Compute Capacity + Contributions",
+          }}
         />
         <SingleNumber
           description="Marketcap to Network Value ratio (MC/TVN)"
@@ -491,13 +499,24 @@ function SingleNumber({
   value,
   description,
   className,
+  tooltip,
 }: {
   value: string
   description: string
   className?: string
-}) {
+  tooltip?: string | {
+    explanation?: string
+    formula?: string
+  }}) {
   return (
-    <Card className={cn("content-center px-2 py-8", className)}>
+    <Card className={cn("content-center px-2 py-8 relative", className)}>
+      {tooltip && (
+        <SimpleTooltip tooltip={tooltip}>
+          <div className="absolute top-2 right-2">
+            <Info className="h-4 w-4 text-[#DDDDDD]" />
+          </div>
+        </SimpleTooltip>
+      )}
       <CardHeader className="place-items-center">
         <CardTitle className="flex gap-1 text-center text-2xl max-xl:lg:text-lg">
           {value}
