@@ -247,16 +247,19 @@ export function AdvancedConfig() {
               />
               <Separator />
               <NumericInput
-                title="Validator Reward Percentage"
-                value={config.blockchain.rewards.validatorPercentage}
+                title="Minimum Decentralized Breach Resistance in USD"
+                value={
+                  config.blockchain.requirement
+                    .minimumDecentralizedBreachResistance
+                }
                 onChange={(v) =>
                   setConfig({
                     ...config,
                     blockchain: {
                       ...config.blockchain,
-                      rewards: {
-                        ...config.blockchain.rewards,
-                        validatorPercentage: v,
+                      requirement: {
+                        ...config.blockchain.requirement,
+                        minimumDecentralizedBreachResistance: v,
                       },
                     },
                   })
@@ -264,8 +267,8 @@ export function AdvancedConfig() {
               />
               <Separator />
               <NumericInput
-                title="Early Validator Reward Bonus Percentage"
-                value={config.blockchain.rewards.earlyValidatorBonus}
+                title="Validator Reward Percentage"
+                value={config.blockchain.rewards.validator.percentage}
                 onChange={(v) =>
                   setConfig({
                     ...config,
@@ -273,7 +276,70 @@ export function AdvancedConfig() {
                       ...config.blockchain,
                       rewards: {
                         ...config.blockchain.rewards,
-                        earlyValidatorBonus: v,
+                        validator: {
+                          ...config.blockchain.rewards.validator,
+                          percentage: v,
+                        },
+                      },
+                    },
+                  })
+                }
+              />
+              <Separator />
+              <NumericInput
+                title="Validator Reward Period in Month"
+                value={config.blockchain.rewards.validator.period}
+                onChange={(v) =>
+                  setConfig({
+                    ...config,
+                    blockchain: {
+                      ...config.blockchain,
+                      rewards: {
+                        ...config.blockchain.rewards,
+                        validator: {
+                          ...config.blockchain.rewards.validator,
+                          period: v,
+                        },
+                      },
+                    },
+                  })
+                }
+              />
+              <Separator />
+              <NumericInput
+                title="Early Validator Bonus Reward Percentage"
+                value={config.blockchain.rewards.earlyValidator.percentage}
+                onChange={(v) =>
+                  setConfig({
+                    ...config,
+                    blockchain: {
+                      ...config.blockchain,
+                      rewards: {
+                        ...config.blockchain.rewards,
+                        earlyValidator: {
+                          ...config.blockchain.rewards.earlyValidator,
+                          percentage: v,
+                        },
+                      },
+                    },
+                  })
+                }
+              />
+              <Separator />
+              <NumericInput
+                title="Early Validator Period in Months"
+                value={config.blockchain.rewards.earlyValidator.period}
+                onChange={(v) =>
+                  setConfig({
+                    ...config,
+                    blockchain: {
+                      ...config.blockchain,
+                      rewards: {
+                        ...config.blockchain.rewards,
+                        earlyValidator: {
+                          ...config.blockchain.rewards.earlyValidator,
+                          period: v,
+                        },
                       },
                     },
                   })
