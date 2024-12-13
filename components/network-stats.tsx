@@ -507,6 +507,10 @@ export function NetworkStats() {
               },
             }}
           />
+          <SingleNumber
+            description="Cloud Cost Displacement Ratio (CCDR)"
+            value={`${formatNumber((27 - 9) / 27, "ratio")}`}
+          />
         </Section>
         <Section title="Economical">
           <MultiLineChart
