@@ -99,31 +99,49 @@ export function NetworkStats() {
           description="Total Network Value (TVN)"
           value={`${formatNumber(totalNetworkValue)} USD`}
           tooltip={{
-            explanation:
-              "Total Network Value represents the combined value of all network resources and staked tokens in the system.",
-            formula:
-              "TVN = Staked Tokens + Data Storage + Compute Capacity + Contributions",
+            explanation: "Total Network Value represents the combined value of all network resources and staked tokens in the system.",
+            formula: "TVN = Staked Tokens + Data Storage + Compute Capacity + Contributions"
           }}
         />
         <SingleNumber
           description="Marketcap to Network Value ratio (MC/TVN)"
           value={`${formatNumber(marketcapToNetworkValue)}`}
+          tooltip={{
+            explanation: "The ratio of Openmesh market cap to its total network value.",
+            formula: "MC/TVN = Marketcap / TVN"
+          }}
         />
         <SingleNumber
           description="Network Revenue (NR)"
           value={`${formatNumber(cloudValue)} USD/yr`}
+          tooltip={{
+            explanation: "Total revenue generated based on donated resources and equivalent prices.",
+            formula: "NR = Donated Resources × Equivalent Price"
+          }}
         />
         <SingleNumber
           description="Total Network Compute (TNC)"
           value={`${formatNumber(networkCompute)} cores`}
+          tooltip={{
+            explanation: "Total compute capacity available in the network.",
+            formula: "TNC = Sum of all compute resources"
+          }}
         />
         <SingleNumber
           description="Total Network Memory (TNM)"
           value={`${formatNumber(networkMemory, "GB")}`}
+          tooltip={{
+            explanation: "Total memory capacity available in the network.",
+            formula: "TNM = Sum of available memory resources"
+          }}
         />
         <SingleNumber
           description="Total Network Storage (TNS)"
           value={`${formatNumber(networkStorage, "GB")}`}
+          tooltip={{
+            explanation: "Total storage capacity available in the network.",
+            formula: "TNS = Sum of available storage resources"
+          }}
         />
         <div className="col-span-4 max-lg:col-span-2">
           <CloudVisualizer />
@@ -196,6 +214,10 @@ export function NetworkStats() {
         <Gauge
           classname="content-center max-lg:col-span-2"
           title="Economic Breach Resistance (EBR)"
+          tooltip={{
+            explanation: "Cost required to compromise 51% of the network based on staked tokens and resources.",
+            formula: "Value of 51% of staked tokens and resources"
+          }}
           chartData={[
             {
               xAxis: "USD",
@@ -214,6 +236,10 @@ export function NetworkStats() {
         <Gauge
           classname="content-center max-lg:col-span-2"
           title="Minimum Viable Decentralization (MVD)"
+          tooltip={{
+            explanation: "Minimum number of nodes required for decentralized operation.",
+            formula: "Total Nodes / Minimum Nodes Required"
+          }}
           chartData={[
             {
               xAxis: "nodes",
@@ -236,6 +262,10 @@ export function NetworkStats() {
           className="max-lg:col-span-2"
           description="Staking Locked Value (SLV)"
           value={`${formatNumber(totalStakedValue)} USD`}
+          tooltip={{
+            explanation: "Total value of tokens locked for governance, validation and resource provisioning.",
+            formula: "SLV = Staked tokens × Token price"
+          }}
         />
         <PieChart
           classname="content-center max-lg:col-span-2"
