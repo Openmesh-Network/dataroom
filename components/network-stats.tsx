@@ -214,6 +214,10 @@ export function NetworkStats() {
         <Gauge
           classname="content-center max-lg:col-span-2"
           title="Economic Breach Resistance (EBR)"
+          tooltip={{
+            explanation: "Cost required to compromise 51% of the network based on staked tokens and resources.",
+            formula: "Value of 51% of staked tokens and resources"
+          }}
           chartData={[
             {
               xAxis: "USD",
@@ -232,6 +236,10 @@ export function NetworkStats() {
         <Gauge
           classname="content-center max-lg:col-span-2"
           title="Minimum Viable Decentralization (MVD)"
+          tooltip={{
+            explanation: "Minimum number of nodes required for decentralized operation.",
+            formula: "Total Nodes / Minimum Nodes Required"
+          }}
           chartData={[
             {
               xAxis: "nodes",

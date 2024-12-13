@@ -17,20 +17,35 @@ import {
   RadialBar,
   RadialBarChart,
 } from "recharts"
+import { Info } from "lucide-react"
+import { SimpleTooltip } from "../SimpleTooltip"
 
 import { ChartParams } from "./chart-types"
 
 export function Gauge<T extends { value: number }>(
-  params: ChartParams<T> & { max: number },
+  params: ChartParams<T> & {
+    max: number
+    tooltip?: {
+      explanation?: string
+      formula?: string
+    }
+  },
 ) {
   const isLgXlDevice = useIsLgXlDevice()
 
   return (
     <Card className={params.classname}>
-      <CardHeader className="p-1 pt-4">
+      <CardHeader className="p-1 pt-4 relative">
         <CardTitle className="text-center text-xl max-xl:lg:text-base">
           {params.title}
         </CardTitle>
+        {params.tooltip && (
+          <SimpleTooltip tooltip={params.tooltip}>
+            <div className="absolute top-2 right-2">
+              <Info className="h-4 w-4 text-[#DDDDDD]" />
+            </div>
+          </SimpleTooltip>
+        )}
         {params.description && (
           <CardDescription>{params.description}</CardDescription>
         )}
