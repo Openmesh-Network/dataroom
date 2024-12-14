@@ -270,6 +270,10 @@ export function NetworkStats() {
         <PieChart
           classname="content-center max-lg:col-span-2"
           title="Total Cloud Resources"
+          tooltip={{
+            explanation: "Distribution of compute, memory, storage, and bandwidth resources available in the cloud.",
+            formula: "Resources allocated per category / Total resources"
+          }}
           chartData={[
             {
               xAxis: "Compute (10 Cores)",
@@ -318,6 +322,10 @@ export function NetworkStats() {
             title="Storage Cost"
             description="Monthly cost in USD per TB of storage at certain order sizes"
             tickFormatter={(xAxis) => xAxis}
+            tooltip={{
+              explanation: "Cost of storing 1GB on Openmesh vs competitors.",
+              formula: "AWS S3 Price, GCP Price, Azure Price vs Openmesh Price"
+            }}
             chartData={[
               {
                 xAxis: "1GB",
@@ -385,6 +393,10 @@ export function NetworkStats() {
             classname="content-center border-0"
             title="Compute Cost"
             description="Monthly cost per core at certain order sizes (single machine)"
+            tooltip={{
+              explanation: "Cost of 1 compute core on Openmesh vs centralized clouds.",
+              formula: "CC = Openmesh Cost / Compute Hour"
+            }}
             tickFormatter={(xAxis) => xAxis.split(" ")[0]}
             chartData={[
               {
@@ -443,6 +455,10 @@ export function NetworkStats() {
             classname="content-center border-0"
             title="Data Retrieval Cost"
             description="Cost in USD per TB of bandwidth at certain order sizes"
+            tooltip={{
+              explanation: "The cost of retrieving 1GB of data from Openmesh versus competitors.",
+              formula: "AWS Data Retrieval Cost, GCP Data Retrieval Cost, Azure Data Retrieval Cost vs Openmesh Cost"
+            }}
             tickFormatter={(xAxis) => xAxis}
             chartData={[
               {
@@ -517,6 +533,10 @@ export function NetworkStats() {
             classname="content-center"
             title="Token Utilization Velocity"
             description="OPEN tokens part of transactions"
+            tooltip={{
+              explanation: "Frequency of OPEN tokens within the network.",
+              formula: "TUV = Transaction Volume / Circulating Supply"
+            }}
             chartData={growth(config, (nodes) => {
               const tokens = nodes * config.blockchain.requirement.proofOfStake
 
@@ -534,6 +554,10 @@ export function NetworkStats() {
             classname="content-center"
             title="Data Value Index (DVI)"
             description="Valuation of data stored in the network (in USD)"
+            tooltip={{
+              explanation: "Economic worth of stored data based on usage frequency and type.",
+              formula: "Sum(Data worth per type)"
+            }}
             chartData={growth(config, (nodes) => {
               const dataValue =
                 nodes *
@@ -553,6 +577,10 @@ export function NetworkStats() {
             classname="content-center"
             title="Economic Viability of Node Operators (EVNO)"
             description="Monthly profit percentage achieved by purchasing an Xnode"
+            tooltip={{
+              explanation: "Comparison of node operators' underlying costs (hardware, electricity) versus earnings in OPEN tokens.",
+              formula: "Monthly Token Earnings (MTE) / Monthly Operating Costs (MOC)"
+            }}
             chartData={growth(config, (nodes) => {
               const validatorRevenue =
                 (config.blockchain.tokenSupply.total / nodes) *
@@ -586,6 +614,10 @@ export function NetworkStats() {
             classname="content-center"
             title="Fault Tolerance Threshold (FTT)"
             description="Nodes required to attack the network"
+            tooltip={{
+              explanation: "Percentage of nodes that can fail while maintaining full functionality.",
+              formula: "Failed nodes / Total nodes"
+            }}
             chartData={growth(config, (nodes) => {
               const networkTakeoverNodeThreshold = Math.round(
                 nodes *
@@ -608,6 +640,10 @@ export function NetworkStats() {
             classname="content-center"
             title="Consensus Finalization Time (CFT)"
             description="Time it takes the network to reach consensus (in seconds)"
+            tooltip={{
+              explanation: "Time taken to finalize a consensus decision in network consensus.",
+              formula: "Consensus for finality (s) * Total Network Nodes"
+            }}
             chartData={growth(config, (nodes) => {
               const cft =
                 config.blockchain.consensus.finalizationTime.base +
@@ -626,6 +662,10 @@ export function NetworkStats() {
             title="Resource Contribution Equality Index (RCEI)"
             tickFormatter={(x) => x}
             description="Amount of nodes allocating a certain percentage"
+            tooltip={{
+              explanation: "Variance in resource contributions across nodes, indicating decentralization fairness.",
+              formula: "RCEI = Variance / Mean resource contributions"
+            }}
             chartData={[
               {
                 xAxis: "0-5%",
