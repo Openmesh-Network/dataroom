@@ -14,15 +14,31 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import { Info } from "lucide-react"
+import { SimpleTooltip } from "../SimpleTooltip"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import { ChartParams, Properties } from "./chart-types"
 
-export function MultiBarChart<T extends Properties>(params: ChartParams<T>) {
+export function MultiBarChart<T extends Properties>(
+  params: ChartParams<T> & {
+    tooltip?: {
+      explanation?: string
+      formula?: string
+    }
+  }
+) {
   return (
     <Card className={params.classname}>
-      <CardHeader className="pt-4">
+      <CardHeader className="pt-4 relative">
         <CardTitle className="max-xl:lg:text-lg">{params.title}</CardTitle>
+        {params.tooltip && (
+          <SimpleTooltip tooltip={params.tooltip}>
+            <div className="absolute right-2 top-2 z-50">
+              <Info className="h-4 w-4 text-[#DDDDDD]" />
+            </div>
+          </SimpleTooltip>
+        )}
         {params.description && (
           <CardDescription>{params.description}</CardDescription>
         )}

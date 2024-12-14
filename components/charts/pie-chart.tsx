@@ -14,18 +14,33 @@ import {
 } from "@/components/ui/chart"
 import { useIsLgXlDevice } from "@/hooks/useIsLgXlDevice"
 import { Pie, PieChart as RechartsPieChart } from "recharts"
-
+import { Info } from "lucide-react"
+import { SimpleTooltip } from "../SimpleTooltip" 
 import { ChartParams, Properties } from "./chart-types"
 
-export function PieChart<T extends Properties>(params: ChartParams<T>) {
+export function PieChart<T extends Properties>(
+  params: ChartParams<T> & {
+    tooltip?: {
+      explanation?: string
+      formula?: string
+    }
+  }
+) {
   const isLgXlDevice = useIsLgXlDevice()
 
   return (
     <Card className={params.classname}>
-      <CardHeader className="p-1 pt-4">
-        <CardTitle className="text-center text-xl max-xl:lg:text-lg">
+      <CardHeader className="p-1 pt-4 relative">
+        <CardTitle className="text-center text-xl max-xl:lg:text-base">
           {params.title}
         </CardTitle>
+        {params.tooltip && (
+          <SimpleTooltip tooltip={params.tooltip}>
+            <div className="absolute right-2 top-2 z-50">
+              <Info className="h-4 w-4 text-[#DDDDDD]" />
+            </div>
+          </SimpleTooltip>
+        )}
         {params.description && (
           <CardDescription>{params.description}</CardDescription>
         )}
