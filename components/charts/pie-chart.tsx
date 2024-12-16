@@ -29,28 +29,25 @@ export function PieChart<T extends Properties>(
   const isLgXlDevice = useIsLgXlDevice()
 
   return (
-    <Card className={params.classname}>
-      <CardHeader className="p-1 pt-4 relative">
-        <CardTitle className="text-center text-xl max-xl:lg:text-base">
+    <Card className={`h-full ${params.classname}`}>
+      <CardHeader className="flex flex-row items-start justify-between p-4 pb-0">
+        <CardTitle className="text-center text-xl max-xl:lg:text-base w-full">
           {params.title}
         </CardTitle>
         {params.tooltip && (
           <SimpleTooltip tooltip={params.tooltip}>
-            <div className="absolute right-2 top-2 z-50">
+            <div className="ml-2">
               <Info className="h-4 w-4 text-[#DDDDDD]" />
             </div>
           </SimpleTooltip>
         )}
-        {params.description && (
-          <CardDescription>{params.description}</CardDescription>
-        )}
       </CardHeader>
-      <CardContent className="p-0">
+      <CardContent className="p-0 flex items-center justify-center h-[calc(100%-4rem)]">
         <ChartContainer
           config={params.chartConfig}
-          className="mx-auto lg:aspect-square"
+          className="w-full h-full flex items-center justify-center"
         >
-          <RechartsPieChart>
+          <RechartsPieChart width={isLgXlDevice ? 200 : 300} height={isLgXlDevice ? 200 : 300}>
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Pie
               data={params.chartData.map((data, i) => {
@@ -64,6 +61,8 @@ export function PieChart<T extends Properties>(
               nameKey="xAxis"
               innerRadius={isLgXlDevice ? 30 : 50}
               outerRadius={isLgXlDevice ? 40 : 70}
+              cy="50%"
+              cx="50%"
             />
           </RechartsPieChart>
         </ChartContainer>
