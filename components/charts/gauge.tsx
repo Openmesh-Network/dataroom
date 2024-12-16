@@ -34,9 +34,9 @@ export function Gauge<T extends { value: number }>(
   const isLgXlDevice = useIsLgXlDevice()
 
   return (
-    <Card className={params.classname}>
-      <CardHeader className="p-1 pt-4 relative">
-        <CardTitle className="text-center text-lg max-xl:lg:text-base">
+    <Card className={`h-full ${params.classname}`}>
+      <CardHeader className="p-1 pt-4 relative flex flex-row items-start justify-between">
+        <CardTitle className="text-center text-lg max-xl:lg:text-base w-full">
           {params.title}
         </CardTitle>
         {params.tooltip && (
