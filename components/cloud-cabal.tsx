@@ -42,7 +42,7 @@ export function CloudCabal() {
 
   return (
     <div className="flex h-full w-full flex-col rounded-md border bg-white">
-      <span className="pt-4 text-center text-xl font-semibold tracking-tighter max-xl:lg:text-lg">
+      <span className="pt-4 text-center text-lg font-semibold max-xl:lg:text-base">
         Kill the Cloud Cabal
       </span>
       <div className="grow place-content-center pt-2">

@@ -36,7 +36,7 @@ export function Gauge<T extends { value: number }>(
   return (
     <Card className={params.classname}>
       <CardHeader className="p-1 pt-4 relative">
-        <CardTitle className="text-center text-xl max-xl:lg:text-base">
+        <CardTitle className="text-center text-lg max-xl:lg:text-base">
           {params.title}
         </CardTitle>
         {params.tooltip && (
