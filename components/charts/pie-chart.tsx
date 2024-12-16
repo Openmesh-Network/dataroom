@@ -29,8 +29,8 @@ export function PieChart<T extends Properties>(
 
   return (
     <Card className={`h-full ${params.classname}`}>
-      <CardHeader className="flex flex-row items-start justify-between p-4 pb-0">
-        <CardTitle className="text-center text-xl max-xl:lg:text-base w-full">
+      <CardHeader className="p-1 pt-4 relative flex flex-row items-start justify-between">
+        <CardTitle className="text-center text-lg max-xl:lg:text-base w-full">
           {params.title}
         </CardTitle>
         {params.tooltip && (

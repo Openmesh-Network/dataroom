@@ -1,3 +1,4 @@
+import { Card, CardTitle, CardHeader } from "@/components/ui/card"
 import { useIsLgXlDevice } from "@/hooks/useIsLgXlDevice"
 import { cn, formatNumber } from "@/lib/utils"
 
@@ -41,10 +42,12 @@ export function CloudCabal() {
   const maxSize = isLgXlDevice ? 70 : 100
 
   return (
-    <div className="flex h-full w-full flex-col rounded-md border bg-white">
-      <span className="pt-4 text-center text-xl font-semibold tracking-tighter max-xl:lg:text-lg">
-        Kill the Cloud Cabal
-      </span>
+    <Card className="flex h-full w-full flex-col">
+      <CardHeader className="p-1 pt-4 relative flex flex-row items-start justify-between">
+        <CardTitle className="text-center text-lg max-xl:lg:text-base w-full">
+          Kill the Cloud Cabal
+        </CardTitle>
+      </CardHeader>
       <div className="grow place-content-center pt-2">
         <div className="grid grid-cols-4 gap-2">
           {providers.map((provider, i) => (
@@ -79,6 +82,6 @@ export function CloudCabal() {
           ))}
         </div>
       </div>
-    </div>
+    </Card>
   )
 }
