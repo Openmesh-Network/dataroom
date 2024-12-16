@@ -3,7 +3,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -15,7 +14,7 @@ import {
 import { useIsLgXlDevice } from "@/hooks/useIsLgXlDevice"
 import { Pie, PieChart as RechartsPieChart } from "recharts"
 import { Info } from "lucide-react"
-import { SimpleTooltip } from "../SimpleTooltip" 
+import { SimpleTooltip } from "../SimpleTooltip"
 import { ChartParams, Properties } from "./chart-types"
 
 export function PieChart<T extends Properties>(
