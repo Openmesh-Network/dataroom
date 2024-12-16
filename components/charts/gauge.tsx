@@ -46,10 +46,12 @@ export function Gauge<T extends { value: number }>(
             </div>
           </SimpleTooltip>
         )}
-        {params.description && (
-          <CardDescription>{params.description}</CardDescription>
-        )}
       </CardHeader>
+      {params.description && (
+        <div className="px-4 pb-2">
+          <CardDescription>{params.description}</CardDescription>
+        </div>
+      )}
       <CardContent className="p-0">
         <ChartContainer
           config={params.chartConfig}
