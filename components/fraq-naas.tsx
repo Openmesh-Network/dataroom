@@ -11,8 +11,6 @@ import {
 } from "@/components/ui/table"
 import { cn, formatNumber } from "@/lib/utils"
 
-import { useConfig, XnodeSize } from "./config-provider"
-
 interface TableItem {
   logo: (className: string) => React.ReactNode
   name: string
@@ -23,8 +21,6 @@ interface TableItem {
 }
 
 export function FractionalizeNaas() {
-  const config = useConfig()
-
   const providers: TableItem[] = new Array(10).fill({
     logo: (className) => (
       <Image

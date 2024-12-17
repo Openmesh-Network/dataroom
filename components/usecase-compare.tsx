@@ -39,7 +39,7 @@ export function UsecaseCompare() {
       />
     ),
     name: "Xnode One",
-    cost: (specs) => 7.11,
+    cost: () => 7.11,
     setupTime: "~18m",
     kycRequired: "Required",
     paymentAccepted: "Fiat only",

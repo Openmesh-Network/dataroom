@@ -1,7 +1,5 @@
 "use client"
 
-import Image from "next/image"
-
 import { AdvancedConfig } from "./advanced-config"
 import { ComboSlider } from "./combo-slider"
 import { useConfig, useSetConfig } from "./config-provider"
