@@ -14,6 +14,7 @@ export interface XnodeSize {
 
 export type ConfigContextData = {
   nonce: number
+  page: "stats" | "compare" | "fraq-naas"
   numberOfXnodes: number
   xnodeSize: XnodeSize
   xnodeSizeSlider: {
@@ -82,9 +83,11 @@ export type ConfigContextData = {
       dec: number
     }
   }
+  selectedUseCase: XnodeSize
 }
 const defaultConfigContextData: ConfigContextData = {
   nonce: 0,
+  page: "stats",
   numberOfXnodes: 3000,
   xnodeSize: {
     cpu: 8, // cores
@@ -182,6 +185,13 @@ const defaultConfigContextData: ConfigContextData = {
       nov: 100,
       dec: 200,
     },
+  },
+  selectedUseCase: {
+    cpu: 8,
+    memory: 64,
+    storage: 8000,
+    bandwidth: 0,
+    electricity: 0,
   },
 }
 const configContext = createContext<ConfigContextData>(defaultConfigContextData)
