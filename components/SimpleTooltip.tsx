@@ -20,10 +20,12 @@ export function SimpleTooltip({
   }
 
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={0}>
       <Tooltip>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent>
+        <TooltipTrigger asChild className="cursor-pointer">
+          {children}
+        </TooltipTrigger>
+        <TooltipContent side="top">
           {typeof tooltip === 'string' ? (
             <p>{tooltip}</p>
           ) : (
