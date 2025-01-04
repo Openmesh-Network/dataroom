@@ -18,6 +18,8 @@ import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
 import { Info } from "lucide-react"
 import { SimpleTooltip } from "../SimpleTooltip"
 import { ChartParams, Properties } from "./chart-types"
+import React from 'react'
+import { SaveChart } from "@/components/charts/SaveChart"
 
 const CLOUD_COLORS = {
   openmesh: "rgb(59, 130, 246)",
@@ -43,23 +45,27 @@ export function MultiLineChart<T extends Properties>(
     return `hsl(var(--chart-1))`
   }
 
+  const containerRef = React.useRef<HTMLDivElement>(null)
+
   return (
     <Card className={params.classname}>
       <CardHeader className="pt-4 relative">
         <CardTitle className="max-xl:lg:text-lg">{params.title}</CardTitle>
-        {params.tooltip && (
-          <SimpleTooltip tooltip={params.tooltip}>
-            <div className="absolute right-2 top-2 z-50">
+        <div className="absolute right-8 top-4 z-50 flex items-center gap-1.5">
+          <SaveChart chartRef={containerRef} title={params.title} />
+          {params.tooltip && (
+            <SimpleTooltip tooltip={params.tooltip}>
               <Info className="h-4 w-4 text-muted-foreground" />
-            </div>
-          </SimpleTooltip>
-        )}
+            </SimpleTooltip>
+          )}
+        </div>
         {params.description && (
           <CardDescription>{params.description}</CardDescription>
         )}
       </CardHeader>
       <CardContent>
         <ChartContainer
+          ref={containerRef}
           config={Object.keys(params.chartConfig)
             .map((property) => ({
               property: property as keyof typeof params.chartConfig,
@@ -82,10 +88,6 @@ export function MultiLineChart<T extends Properties>(
               xAxis: data.xAxis,
               ...data.data,
             }))}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
           >
             <CartesianGrid vertical={false} />
             <XAxis
