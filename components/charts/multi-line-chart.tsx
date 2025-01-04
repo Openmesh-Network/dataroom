@@ -88,10 +88,6 @@ export function MultiLineChart<T extends Properties>(
               xAxis: data.xAxis,
               ...data.data,
             }))}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
           >
             <CartesianGrid vertical={false} />
             <XAxis
