@@ -108,9 +108,11 @@ export function MultiLineChart<T extends Properties>(
               tickLine={false}
               tickFormatter={(value: number) => {
                 if (value >= 1_000_000) {
-                  return `${(value / 1_000_000).toFixed(1)}M`;
+                  const millions = value / 1_000_000;
+                  return `${millions === Math.floor(millions) ? millions : millions.toFixed(1)}M`;
                 } else if (value >= 1_000) {
-                  return `${(value / 1_000).toFixed(1)}K`;
+                  const thousands = value / 1_000;
+                  return `${thousands === Math.floor(thousands) ? thousands : thousands.toFixed(1)}K`;
                 }
                 return value.toLocaleString();
               }}
