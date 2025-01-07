@@ -40,7 +40,7 @@ type ExtendedChartDataPoint<T extends Properties> = BaseDataPoint & {
 
 const displayNameMapping: Record<string, string> = {
   xnodeProfitMargin: "Xnode Profit Margin",
-  openmesh: "Openmesh",
+  openmesh: "Openmesh Cloud",
   aws: "AWS",
   gcp: "GCP",
   azure: "Azure",
@@ -187,7 +187,7 @@ export function MultiLineChart<T extends Properties>(
       [key]: {
         ...value,
         color: getCloudColor(key),
-        name: value.label || (key === 'openmesh_display' ? 'Openmesh' : key),
+        name: value.label || (key === 'openmesh_display' ? 'Openmesh Cloud' : key),
       }
     };
   }, {} as ChartConfig);
@@ -257,7 +257,7 @@ export function MultiLineChart<T extends Properties>(
                     return {
                       ...item,
                       color: item.color || CLOUD_COLORS[key as keyof typeof CLOUD_COLORS],
-                      name: configItem?.label || (key === 'openmesh_display' ? 'Openmesh' : key),
+                      name: configItem?.label || (key === 'openmesh_display' ? 'Openmesh Cloud' : key),
                     };
                   });
 

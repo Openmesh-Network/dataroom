@@ -11,7 +11,7 @@ export function CloudCabal() {
 
   const providers = [
     {
-      xAxis: "Openmesh",
+      xAxis: "Openmesh Cloud",
       color: "bg-blue-500",
       data: {
         value: config.numberOfXnodes * config.xnodeSize.storage,
