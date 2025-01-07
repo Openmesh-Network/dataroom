@@ -14,7 +14,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import { Info } from "lucide-react"
 import { SimpleTooltip } from "../SimpleTooltip"
 import { ChartParams, Properties } from "./chart-types"
@@ -33,7 +33,9 @@ export function MultiLineChart<T extends Properties>(
     tooltip?: {
       explanation?: string
       formula?: string
-    }
+    },
+    yAxisLabel?: string,
+    xAxisLabel?: string
   }
 ) {
   const getCloudColor = (property: string) => {
@@ -88,20 +90,38 @@ export function MultiLineChart<T extends Properties>(
               xAxis: data.xAxis,
               ...data.data,
             }))}
+            margin={{ top: 40, right: 30, left: 20, bottom: 20 }}
           >
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="xAxis"
               tickLine={false}
-              axisLine={false}
+              axisLine={{ stroke: '#000000' }}
               tickMargin={8}
               tickFormatter={(value) =>
                 params.tickFormatter?.(value) ?? value.slice(0, 3)
               }
+              label={{ value: params.xAxisLabel || 'X Axis', position: 'bottom', offset: 0 }}
+            />
+            <YAxis
+              axisLine={{ stroke: '#000000' }}
+              tickLine={false}
+              tickFormatter={(value: number) => {
+                if (value >= 1_000_000) {
+                  return `${(value / 1_000_000).toFixed(1)}M`;
+                } else if (value >= 1_000) {
+                  return `${(value / 1_000).toFixed(1)}K`;
+                }
+                return value.toLocaleString();
+              }}
+              label={{ value: params.yAxisLabel || 'Y Axis', angle: -90, position: 'insideLeft', offset: 10 }}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             {Object.keys(params.chartConfig).length > 1 && (
-              <ChartLegend content={<ChartLegendContent />} />
+              <ChartLegend
+                content={<ChartLegendContent />}
+                verticalAlign="top"
+              />
             )}
             {Object.keys(params.chartConfig).map((key) => (
               <Line
