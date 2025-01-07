@@ -465,36 +465,36 @@ export function NetworkStats() {
                 xAxis: "1GB",
                 data: {
                   openmesh: 0,
-                  aws: 0.02,
-                  gcp: 0.0,
-                  azure: 0.0,
+                  aws: 0.004,
+                  gcp: 0.05,
+                  azure: 0.002,
                 },
               },
               {
                 xAxis: "100GB",
                 data: {
                   openmesh: 0,
-                  aws: 0.02,
-                  gcp: 0.0,
-                  azure: 0.0,
+                  aws: 0.004,
+                  gcp: 0.05,
+                  azure: 0.002,
                 },
               },
               {
                 xAxis: "50TB",
                 data: {
                   openmesh: 0,
-                  aws: 0.02,
-                  gcp: 0.0,
-                  azure: 0.0,
+                  aws: 0.004,
+                  gcp: 0.05,
+                  azure: 0.002,
                 },
               },
               {
                 xAxis: "500TB",
                 data: {
                   openmesh: 0,
-                  aws: 0.02,
-                  gcp: 0.0,
-                  azure: 0.0,
+                  aws: 0.004,
+                  gcp: 0.05,
+                  azure: 0.002,
                 },
               },
             ].map((datapoint) => {
