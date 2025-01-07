@@ -1,3 +1,5 @@
+"use client"
+
 import { Card, CardTitle, CardHeader } from "@/components/ui/card"
 import { useIsLgXlDevice } from "@/hooks/useIsLgXlDevice"
 import { cn, formatNumber } from "@/lib/utils"
