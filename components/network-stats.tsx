@@ -99,24 +99,28 @@ export function NetworkStats() {
           description="Total Network Value (TVN)"
           value={`${formatNumber(totalNetworkValue)} USD`}
           tooltip={{
-            explanation: "Total Network Value represents the combined value of all network resources and staked tokens in the system.",
-            formula: "TVN = Staked Tokens + Data Storage + Compute Capacity + Contributions"
+            explanation:
+              "Total Network Value represents the combined value of all network resources and staked tokens in the system.",
+            formula:
+              "TVN = Staked Tokens + Data Storage + Compute Capacity + Contributions",
           }}
         />
         <SingleNumber
           description="Marketcap to Network Value ratio (MC/TVN)"
           value={`${formatNumber(marketcapToNetworkValue)}`}
           tooltip={{
-            explanation: "The ratio of Openmesh market cap to its total network value.",
-            formula: "MC/TVN = Marketcap / TVN"
+            explanation:
+              "The ratio of Openmesh market cap to its total network value.",
+            formula: "MC/TVN = Marketcap / TVN",
           }}
         />
         <SingleNumber
           description="Network Revenue (NR)"
           value={`${formatNumber(cloudValue)} USD/yr`}
           tooltip={{
-            explanation: "Total revenue generated based on donated resources and equivalent prices.",
-            formula: "NR = Donated Resources × Equivalent Price"
+            explanation:
+              "Total revenue generated based on donated resources and equivalent prices.",
+            formula: "NR = Donated Resources × Equivalent Price",
           }}
         />
         <SingleNumber
@@ -124,7 +128,7 @@ export function NetworkStats() {
           value={`${formatNumber(networkCompute)} cores`}
           tooltip={{
             explanation: "Total compute capacity available in the network.",
-            formula: "TNC = Sum of all compute resources"
+            formula: "TNC = Sum of all compute resources",
           }}
         />
         <SingleNumber
@@ -132,7 +136,7 @@ export function NetworkStats() {
           value={`${formatNumber(networkMemory, "GB")}`}
           tooltip={{
             explanation: "Total memory capacity available in the network.",
-            formula: "TNM = Sum of available memory resources"
+            formula: "TNM = Sum of available memory resources",
           }}
         />
         <SingleNumber
@@ -140,7 +144,7 @@ export function NetworkStats() {
           value={`${formatNumber(networkStorage, "GB")}`}
           tooltip={{
             explanation: "Total storage capacity available in the network.",
-            formula: "TNS = Sum of available storage resources"
+            formula: "TNS = Sum of available storage resources",
           }}
         />
         <div className="col-span-4 max-lg:col-span-2">
@@ -215,8 +219,9 @@ export function NetworkStats() {
           classname="content-center max-lg:col-span-2"
           title="Economic Breach Resistance (EBR)"
           tooltip={{
-            explanation: "Cost required to compromise 51% of the network based on staked tokens and resources.",
-            formula: "Value of 51% of staked tokens and resources"
+            explanation:
+              "Cost required to compromise 51% of the network based on staked tokens and resources.",
+            formula: "Value of 51% of staked tokens and resources",
           }}
           chartData={[
             {
@@ -237,8 +242,9 @@ export function NetworkStats() {
           classname="content-center max-lg:col-span-2"
           title="Minimum Viable Decentralization (MVD)"
           tooltip={{
-            explanation: "Minimum number of nodes required for decentralized operation.",
-            formula: "Total Nodes / Minimum Nodes Required"
+            explanation:
+              "Minimum number of nodes required for decentralized operation.",
+            formula: "Total Nodes / Minimum Nodes Required",
           }}
           chartData={[
             {
@@ -263,16 +269,18 @@ export function NetworkStats() {
           description="Staking Locked Value (SLV)"
           value={`${formatNumber(totalStakedValue)} USD`}
           tooltip={{
-            explanation: "Total value of tokens locked for governance, validation and resource provisioning.",
-            formula: "SLV = Staked tokens × Token price"
+            explanation:
+              "Total value of tokens locked for governance, validation and resource provisioning.",
+            formula: "SLV = Staked tokens × Token price",
           }}
         />
         <PieChart
           classname="content-center max-lg:col-span-2"
           title="Total Cloud Resources"
           tooltip={{
-            explanation: "Distribution of compute, memory, storage, and bandwidth resources available in the cloud.",
-            formula: "Resources allocated per category / Total resources"
+            explanation:
+              "Distribution of compute, memory, storage, and bandwidth resources available in the cloud.",
+            formula: "Resources allocated per category / Total resources",
           }}
           chartData={[
             {
@@ -322,17 +330,18 @@ export function NetworkStats() {
             title="Storage Cost"
             description="Monthly cost in USD per TB of storage at certain order sizes"
             tickFormatter={(xAxis) => xAxis}
-            xAxisLabel="Storage (GB)"
+            xAxisLabel="Storage (TB)"
             yAxisLabel="Cost ($)"
             tooltip={{
-              explanation: "Cost of storing 1GB on Openmesh vs competitors.",
-              formula: "AWS S3 Price, GCP Price, Azure Price vs Openmesh Price"
+              explanation: "Cost of storing 1TB on Openmesh vs competitors.",
+              formula: "AWS S3 Price, GCP Price, Azure Price vs Openmesh Price",
             }}
             chartData={[
               {
                 xAxis: "1GB",
                 data: {
                   openmesh: 0,
+                  baremetal: 0.006,
                   aws: 0.023,
                   gcp: 0.03,
                   azure: 0.018,
@@ -342,6 +351,7 @@ export function NetworkStats() {
                 xAxis: "100GB",
                 data: {
                   openmesh: 0,
+                  baremetal: 0.006,
                   aws: 0.023,
                   gcp: 0.03,
                   azure: 0.018,
@@ -351,6 +361,7 @@ export function NetworkStats() {
                 xAxis: "50TB",
                 data: {
                   openmesh: 0,
+                  baremetal: 0.006,
                   aws: 0.023,
                   gcp: 0.03,
                   azure: 0.018,
@@ -360,6 +371,7 @@ export function NetworkStats() {
                 xAxis: "500TB",
                 data: {
                   openmesh: 0,
+                  baremetal: 0.006,
                   aws: 0.022,
                   gcp: 0.03,
                   azure: 0.018,
@@ -370,6 +382,7 @@ export function NetworkStats() {
                 ...datapoint,
                 data: {
                   openmesh: datapoint.data.openmesh * 1000,
+                  baremetal: datapoint.data.baremetal * 1000,
                   aws: datapoint.data.aws * 1000,
                   gcp: datapoint.data.gcp * 1000,
                   azure: datapoint.data.azure * 1000,
@@ -379,6 +392,9 @@ export function NetworkStats() {
             chartConfig={{
               openmesh: {
                 label: "Openmesh Cloud",
+              },
+              baremetal: {
+                label: "Openmesh Baremetal",
               },
               aws: {
                 label: "AWS",
@@ -398,8 +414,9 @@ export function NetworkStats() {
             xAxisLabel="Compute (Cores)"
             yAxisLabel="Cost ($)"
             tooltip={{
-              explanation: "Cost of 1 compute core on Openmesh vs centralized clouds.",
-              formula: "CC = Openmesh Cost / Compute Hour"
+              explanation:
+                "Cost of 1 compute core on Openmesh vs centralized clouds.",
+              formula: "CC = Openmesh Cost / Compute Hour",
             }}
             tickFormatter={(xAxis) => xAxis.split(" ")[0]}
             chartData={[
@@ -407,6 +424,7 @@ export function NetworkStats() {
                 xAxis: "1 Cores",
                 data: {
                   openmesh: 0,
+                  baremetal: 2.5,
                   aws: 3.89,
                   gcp: 61.24,
                   azure: 7.3,
@@ -416,6 +434,7 @@ export function NetworkStats() {
                 xAxis: "4 Cores",
                 data: {
                   openmesh: 0,
+                  baremetal: 14 / 4,
                   aws: 124.42 / 4,
                   gcp: 122.47 / 4,
                   azure: 124.1 / 4,
@@ -425,6 +444,7 @@ export function NetworkStats() {
                 xAxis: "16 Cores",
                 data: {
                   openmesh: 0,
+                  baremetal: 102 / 16,
                   aws: 570.24 / 16,
                   gcp: 489.89 / 16,
                   azure: 494.94 / 16,
@@ -434,6 +454,7 @@ export function NetworkStats() {
                 xAxis: "96 Cores",
                 data: {
                   openmesh: 0,
+                  baremetal: 3840.0 / 96,
                   aws: 3856.9 / 96,
                   gcp: 2939.34 / 96,
                   azure: 3539.04 / 96,
@@ -443,6 +464,9 @@ export function NetworkStats() {
             chartConfig={{
               openmesh: {
                 label: "Openmesh Cloud",
+              },
+              baremetal: {
+                label: "Openmesh Baremetal",
               },
               aws: {
                 label: "AWS",
@@ -462,8 +486,10 @@ export function NetworkStats() {
             xAxisLabel="Bandwidth (TB)"
             yAxisLabel="Cost ($)"
             tooltip={{
-              explanation: "The cost of retrieving 1GB of data from Openmesh versus competitors.",
-              formula: "AWS Data Retrieval Cost, GCP Data Retrieval Cost, Azure Data Retrieval Cost vs Openmesh Cost"
+              explanation:
+                "The cost of retrieving 1TB of data from Openmesh versus competitors.",
+              formula:
+                "AWS Data Retrieval Cost, GCP Data Retrieval Cost, Azure Data Retrieval Cost vs Openmesh Cost",
             }}
             tickFormatter={(xAxis) => xAxis}
             chartData={[
@@ -471,6 +497,7 @@ export function NetworkStats() {
                 xAxis: "1GB",
                 data: {
                   openmesh: 0,
+                  baremetal: 0.002,
                   aws: 0.004,
                   gcp: 0.05,
                   azure: 0.002,
@@ -480,6 +507,7 @@ export function NetworkStats() {
                 xAxis: "100GB",
                 data: {
                   openmesh: 0,
+                  baremetal: 0.002,
                   aws: 0.004,
                   gcp: 0.05,
                   azure: 0.002,
@@ -489,6 +517,7 @@ export function NetworkStats() {
                 xAxis: "50TB",
                 data: {
                   openmesh: 0,
+                  baremetal: 0.002,
                   aws: 0.004,
                   gcp: 0.05,
                   azure: 0.002,
@@ -498,6 +527,7 @@ export function NetworkStats() {
                 xAxis: "500TB",
                 data: {
                   openmesh: 0,
+                  baremetal: 0.002,
                   aws: 0.004,
                   gcp: 0.05,
                   azure: 0.002,
@@ -508,6 +538,7 @@ export function NetworkStats() {
                 ...datapoint,
                 data: {
                   openmesh: datapoint.data.openmesh * 1000,
+                  baremetal: datapoint.data.baremetal * 1000,
                   aws: datapoint.data.aws * 1000,
                   gcp: datapoint.data.gcp * 1000,
                   azure: datapoint.data.azure * 1000,
@@ -517,6 +548,9 @@ export function NetworkStats() {
             chartConfig={{
               openmesh: {
                 label: "Openmesh Cloud",
+              },
+              baremetal: {
+                label: "Openmesh Baremetal",
               },
               aws: {
                 label: "AWS",
@@ -543,7 +577,7 @@ export function NetworkStats() {
             yAxisLabel="$OPEN Tokens"
             tooltip={{
               explanation: "Frequency of OPEN tokens within the network.",
-              formula: "TUV = Transaction Volume / Circulating Supply"
+              formula: "TUV = Transaction Volume / Circulating Supply",
             }}
             chartData={growth(config, (nodes) => {
               const tokens = nodes * config.blockchain.requirement.proofOfStake
@@ -565,8 +599,9 @@ export function NetworkStats() {
             xAxisLabel="Time (Months)"
             yAxisLabel="Value ($)"
             tooltip={{
-              explanation: "Economic worth of stored data based on usage frequency and type.",
-              formula: "Sum(Data worth per type)"
+              explanation:
+                "Economic worth of stored data based on usage frequency and type.",
+              formula: "Sum(Data worth per type)",
             }}
             chartData={growth(config, (nodes) => {
               const dataValue =
@@ -590,8 +625,10 @@ export function NetworkStats() {
             xAxisLabel="Time (Months)"
             yAxisLabel="Profit (%)"
             tooltip={{
-              explanation: "Comparison of node operators' underlying costs (hardware, electricity) versus earnings in OPEN tokens.",
-              formula: "Monthly Token Earnings (MTE) / Monthly Operating Costs (MOC)"
+              explanation:
+                "Comparison of node operators' underlying costs (hardware, electricity) versus earnings in OPEN tokens.",
+              formula:
+                "Monthly Token Earnings (MTE) / Monthly Operating Costs (MOC)",
             }}
             chartData={growth(config, (nodes) => {
               const validatorRevenue =
@@ -629,8 +666,9 @@ export function NetworkStats() {
             xAxisLabel="Time (Months)"
             yAxisLabel="Nodes"
             tooltip={{
-              explanation: "Percentage of nodes that can fail while maintaining full functionality.",
-              formula: "Failed nodes / Total nodes"
+              explanation:
+                "Percentage of nodes that can fail while maintaining full functionality.",
+              formula: "Failed nodes / Total nodes",
             }}
             chartData={growth(config, (nodes) => {
               const networkTakeoverNodeThreshold = Math.round(
@@ -657,8 +695,9 @@ export function NetworkStats() {
             xAxisLabel="Time (Months)"
             yAxisLabel="Time (s)"
             tooltip={{
-              explanation: "Time taken to finalize a consensus decision in network consensus.",
-              formula: "Consensus for finality (s) * Total Network Nodes"
+              explanation:
+                "Time taken to finalize a consensus decision in network consensus.",
+              formula: "Consensus for finality (s) * Total Network Nodes",
             }}
             chartData={growth(config, (nodes) => {
               const cft =
@@ -679,8 +718,9 @@ export function NetworkStats() {
             tickFormatter={(x) => x}
             description="Amount of nodes allocating a certain percentage"
             tooltip={{
-              explanation: "Variance in resource contributions across nodes, indicating decentralization fairness.",
-              formula: "RCEI = Variance / Mean resource contributions"
+              explanation:
+                "Variance in resource contributions across nodes, indicating decentralization fairness.",
+              formula: "RCEI = Variance / Mean resource contributions",
             }}
             chartData={[
               {
