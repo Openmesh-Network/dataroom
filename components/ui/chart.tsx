@@ -265,54 +265,26 @@ const ChartLegendContent = React.forwardRef<
       nameKey?: string
     }
 >(
-  (
-    { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
-    ref,
-  ) => {
-    const { config } = useChart()
-
+  ({ payload, hideIcon = false, verticalAlign = "bottom", nameKey }, ref) => {
     if (!payload?.length) {
-      return null
+      return null;
     }
 
     return (
-      <div
-        ref={ref}
-        className={cn(
-          "flex items-center justify-center gap-4",
-          verticalAlign === "top" ? "pb-3" : "pt-3",
-          className,
-        )}
-      >
-        {payload.map((item) => {
-          const key = `${nameKey || item.dataKey || "value"}`
-          const itemConfig = getPayloadConfigFromPayload(config, item, key)
-
-          return (
+      <div ref={ref} className="flex items-center justify-center gap-4">
+        {payload.map((item) => (
+          <div key={item.dataKey} className="flex items-center gap-1.5">
             <div
-              key={item.value}
-              className={cn(
-                "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-gray-500 dark:[&>svg]:text-gray-400",
-              )}
-            >
-              {itemConfig?.icon && !hideIcon ? (
-                <itemConfig.icon />
-              ) : (
-                <div
-                  className="h-2 w-2 shrink-0 rounded-[2px]"
-                  style={{
-                    backgroundColor: item.color,
-                  }}
-                />
-              )}
-              {itemConfig?.label}
-            </div>
-          )
-        })}
+              className="h-2 w-2 shrink-0 rounded-[2px]"
+              style={{ backgroundColor: item.color }}
+            />
+            {item.name}
+          </div>
+        ))}
       </div>
-    )
+    );
   },
-)
+);
 ChartLegendContent.displayName = "ChartLegend"
 
 // Helper to extract item config from a payload.

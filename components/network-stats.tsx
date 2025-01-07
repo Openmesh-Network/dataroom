@@ -323,7 +323,7 @@ export function NetworkStats() {
             description="Monthly cost in USD per TB of storage at certain order sizes"
             tickFormatter={(xAxis) => xAxis}
             xAxisLabel="Storage (GB)"
-            yAxisLabel="Cost (USD)"
+            yAxisLabel="Cost ($)"
             tooltip={{
               explanation: "Cost of storing 1GB on Openmesh vs competitors.",
               formula: "AWS S3 Price, GCP Price, Azure Price vs Openmesh Price"
@@ -396,7 +396,7 @@ export function NetworkStats() {
             title="Compute Cost"
             description="Monthly cost per core at certain order sizes (single machine)"
             xAxisLabel="Compute (Cores)"
-            yAxisLabel="Cost (USD)"
+            yAxisLabel="Cost ($)"
             tooltip={{
               explanation: "Cost of 1 compute core on Openmesh vs centralized clouds.",
               formula: "CC = Openmesh Cost / Compute Hour"
@@ -460,7 +460,7 @@ export function NetworkStats() {
             title="Data Retrieval Cost"
             description="Cost in USD per TB of bandwidth at certain order sizes"
             xAxisLabel="Bandwidth (TB)"
-            yAxisLabel="Cost (USD)"
+            yAxisLabel="Cost ($)"
             tooltip={{
               explanation: "The cost of retrieving 1GB of data from Openmesh versus competitors.",
               formula: "AWS Data Retrieval Cost, GCP Data Retrieval Cost, Azure Data Retrieval Cost vs Openmesh Cost"
@@ -563,7 +563,7 @@ export function NetworkStats() {
             title="Data Value Index (DVI)"
             description="Valuation of data stored in the network (in USD)"
             xAxisLabel="Time (Months)"
-            yAxisLabel="Value (USD)"
+            yAxisLabel="Value ($)"
             tooltip={{
               explanation: "Economic worth of stored data based on usage frequency and type.",
               formula: "Sum(Data worth per type)"

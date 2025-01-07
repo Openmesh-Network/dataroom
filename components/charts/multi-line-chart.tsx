@@ -12,7 +12,6 @@ import {
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
-  ChartTooltipContent,
 } from "@/components/ui/chart"
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import { Info } from "lucide-react"
@@ -44,33 +43,57 @@ const displayNameMapping: Record<string, string> = {
   aws: "AWS",
   gcp: "GCP",
   azure: "Azure",
-  dataValue: "Data Value (USD)",
-  xnodeAmortizedCost: "Xnode Amortized Cost (USD)",
-  xnodeElectricityCost: "Xnode Electricity Cost (USD)",
-  xnodeComputeRevenue: "Xnode Compute Revenue (USD)",
-  xnodeMemoryRevenue: "Xnode Memory Revenue (USD)",
-  xnodeStorageRevenue: "Xnode Storage Revenue (USD)",
-  xnodeBandwidthRevenue: "Xnode Bandwidth Revenue (USD)",
+  dataValue: "Data Value ($)",
+  xnodeAmortizedCost: "Xnode Amortized Cost ($)",
+  xnodeElectricityCost: "Xnode Electricity Cost ($)",
+  xnodeComputeRevenue: "Xnode Compute Revenue ($)",
+  xnodeMemoryRevenue: "Xnode Memory Revenue ($)",
+  xnodeStorageRevenue: "Xnode Storage Revenue ($)",
+  xnodeBandwidthRevenue: "Xnode Bandwidth Revenue ($)",
   tokens: "$OPEN Tokens",
-  validatorRevenue: "Validator Revenue (USD)",
-  earlyValidatorRevenue: "Early Validator Revenue (USD)",
+  validatorRevenue: "Validator Revenue ($)",
+  earlyValidatorRevenue: "Early Validator Revenue ($)",
 };
 
-const CustomTooltip = ({ active, payload, xAxisLabel }: { active: boolean; payload: any; xAxisLabel: string }) => {
+interface PayloadData {
+  xAxis: string;
+  [key: string]: number | string;
+}
+
+interface TooltipEntry {
+  name: string;
+  value: number;
+  color?: string;
+  payload: PayloadData;
+}
+
+interface CustomTooltipProps {
+  active: boolean;
+  payload: TooltipEntry[];
+  xAxisLabel: string;
+}
+
+const CustomTooltip: React.FC<CustomTooltipProps> = ({
+  active,
+  payload,
+  xAxisLabel,
+}) => {
   if (active && payload && payload.length) {
-    const allValuesZero = payload.every((entry: any) => entry.value === 0);
+    const allValuesZero = payload.every((entry) => entry.value === 0);
 
     return (
       <div className="bg-white border border-gray-300 rounded shadow-lg p-2">
         <p className="font-bold">{`${xAxisLabel}: ${payload[0].payload.xAxis}`}</p>
-        {payload.map((entry: any) => {
+        {payload.map((entry) => {
           const originalValue = entry.payload[entry.name];
           const valueToShow = allValuesZero ? 0 : originalValue;
           const color = entry.color || entry.payload.fill;
           const displayName = displayNameMapping[entry.name] || entry.name;
           return (
             <p key={entry.name} className="text-sm text-gray-700">
-              <span style={{ color }}>{`${displayName}: ${valueToShow.toFixed(0)}`}</span>
+              <span style={{ color: String(color || 'defaultColor') }}>
+                {`${displayName}: ${typeof valueToShow === 'number' ? valueToShow.toFixed(0) : valueToShow}`}
+              </span>
             </p>
           );
         })}
@@ -137,11 +160,9 @@ export function MultiLineChart<T extends Properties>(
       Object.keys(params.chartConfig).forEach(key => {
         const typedKey = key as keyof T;
         if (isAllZeros(typedKey)) {
-          // Set the display value to the offset for plotting purposes
-          (baseItem as Record<string, number | undefined>)[`${String(typedKey)}_display`] = offset; // Apply offset for plotting
+          (baseItem as Record<string, number | undefined>)[`${String(typedKey)}_display`] = offset;
         } else {
-          // For non-zero values, apply the offset
-          (baseItem as Record<string, number | undefined>)[`${String(typedKey)}_display`] = item.data[typedKey] + offset; // Apply offset for plotting
+          (baseItem as Record<string, number | undefined>)[`${String(typedKey)}_display`] = item.data[typedKey] + offset;
         }
       });
 
@@ -194,7 +215,6 @@ export function MultiLineChart<T extends Properties>(
             data={transformedData}
             margin={{ top: 40, right: 30, left: 20, bottom: 20 }}
           >
-            {console.log('Chart data:', transformedData)} {/* Debug log */}
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="xAxis"
@@ -221,15 +241,31 @@ export function MultiLineChart<T extends Properties>(
               }}
               label={{ value: params.yAxisLabel || 'Y Axis', angle: -90, position: 'insideLeft', offset: 10 }}
             />
-            <ChartTooltip cursor={false} content={<CustomTooltip xAxisLabel={params.xAxisLabel || 'X Axis'} />} />
+            <ChartTooltip
+              cursor={false}
+              content={(props) => <CustomTooltip {...props as CustomTooltipProps} xAxisLabel={params.xAxisLabel || 'X Axis'} />}
+            />
             {Object.keys(params.chartConfig).length > 1 && (
               <ChartLegend
-                content={<ChartLegendContent />}
+                content={({ payload }) => {
+                  const legendItems = (payload || []).map(item => {
+                    const key = item.dataKey;
+                    return {
+                      ...item,
+                      color: item.color || CLOUD_COLORS[key as keyof typeof CLOUD_COLORS],
+                      name: params.chartConfig[key]?.label || (key === 'openmesh_display' ? 'Openmesh' : key),
+                    };
+                  });
+
+                  return (
+                    <ChartLegendContent payload={legendItems} />
+                  );
+                }}
                 verticalAlign="top"
               />
             )}
             {Object.keys(params.chartConfig).map((key) => {
-              const hasAllZeros = isAllZeros(key as keyof T)
+              const hasAllZeros = isAllZeros(key as keyof T);
               return (
                 <Line
                   key={key}
@@ -240,8 +276,9 @@ export function MultiLineChart<T extends Properties>(
                   dot={true}
                   name={key}
                   fill={getCloudColor(key)}
+                  hide={false}
                 />
-              )
+              );
             })}
           </LineChart>
         </ChartContainer>
