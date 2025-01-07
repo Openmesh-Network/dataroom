@@ -265,54 +265,33 @@ const ChartLegendContent = React.forwardRef<
       nameKey?: string
     }
 >(
-  (
-    { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
-    ref,
-  ) => {
-    const { config } = useChart()
-
+  ({ payload, hideIcon = false, verticalAlign = "bottom", nameKey }, ref) => {
     if (!payload?.length) {
       return null
     }
 
     return (
-      <div
-        ref={ref}
-        className={cn(
-          "flex items-center justify-center gap-4",
-          verticalAlign === "top" ? "pb-3" : "pt-3",
-          className,
-        )}
-      >
+      <div ref={ref} className={`flex items-center justify-center gap-4 ${verticalAlign === "bottom" ? "mt-4" : "mb-4"}`}>
         {payload.map((item) => {
-          const key = `${nameKey || item.dataKey || "value"}`
-          const itemConfig = getPayloadConfigFromPayload(config, item, key)
-
+          if (!isCustomPayload(item)) {
+            return null;
+          }
           return (
-            <div
-              key={item.value}
-              className={cn(
-                "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-gray-500 dark:[&>svg]:text-gray-400",
-              )}
-            >
-              {itemConfig?.icon && !hideIcon ? (
-                <itemConfig.icon />
-              ) : (
+            <div key={item.dataKey} className="flex items-center gap-1.5">
+              {!hideIcon && (
                 <div
                   className="h-2 w-2 shrink-0 rounded-[2px]"
-                  style={{
-                    backgroundColor: item.color,
-                  }}
+                  style={{ backgroundColor: item.color }}
                 />
               )}
-              {itemConfig?.label}
+              {nameKey && nameKey in item ? item[nameKey as keyof Payload] : item.name}
             </div>
-          )
+          );
         })}
       </div>
-    )
+    );
   },
-)
+);
 ChartLegendContent.displayName = "ChartLegend"
 
 // Helper to extract item config from a payload.
@@ -352,6 +331,21 @@ function getPayloadConfigFromPayload(
   return configLabelKey in config
     ? config[configLabelKey]
     : config[key as keyof typeof config]
+}
+
+type Payload = {
+  dataKey: string;
+  name: string;
+  color?: string;
+};
+
+function isCustomPayload(item: unknown): item is Payload {
+  return (
+    typeof item === 'object' &&
+    item !== null &&
+    'dataKey' in item &&
+    'name' in item
+  );
 }
 
 export {

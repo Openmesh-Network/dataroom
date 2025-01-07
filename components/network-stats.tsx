@@ -322,6 +322,8 @@ export function NetworkStats() {
             title="Storage Cost"
             description="Monthly cost in USD per TB of storage at certain order sizes"
             tickFormatter={(xAxis) => xAxis}
+            xAxisLabel="Storage (GB)"
+            yAxisLabel="Cost ($)"
             tooltip={{
               explanation: "Cost of storing 1GB on Openmesh vs competitors.",
               formula: "AWS S3 Price, GCP Price, Azure Price vs Openmesh Price"
@@ -376,7 +378,7 @@ export function NetworkStats() {
             })}
             chartConfig={{
               openmesh: {
-                label: "Openmesh",
+                label: "Openmesh Cloud",
               },
               aws: {
                 label: "AWS",
@@ -393,6 +395,8 @@ export function NetworkStats() {
             classname="content-center border-0"
             title="Compute Cost"
             description="Monthly cost per core at certain order sizes (single machine)"
+            xAxisLabel="Compute (Cores)"
+            yAxisLabel="Cost ($)"
             tooltip={{
               explanation: "Cost of 1 compute core on Openmesh vs centralized clouds.",
               formula: "CC = Openmesh Cost / Compute Hour"
@@ -438,7 +442,7 @@ export function NetworkStats() {
             ]}
             chartConfig={{
               openmesh: {
-                label: "Openmesh",
+                label: "Openmesh Cloud",
               },
               aws: {
                 label: "AWS",
@@ -455,6 +459,8 @@ export function NetworkStats() {
             classname="content-center border-0"
             title="Data Retrieval Cost"
             description="Cost in USD per TB of bandwidth at certain order sizes"
+            xAxisLabel="Bandwidth (TB)"
+            yAxisLabel="Cost ($)"
             tooltip={{
               explanation: "The cost of retrieving 1GB of data from Openmesh versus competitors.",
               formula: "AWS Data Retrieval Cost, GCP Data Retrieval Cost, Azure Data Retrieval Cost vs Openmesh Cost"
@@ -510,7 +516,7 @@ export function NetworkStats() {
             })}
             chartConfig={{
               openmesh: {
-                label: "Openmesh",
+                label: "Openmesh Cloud",
               },
               aws: {
                 label: "AWS",
@@ -533,6 +539,8 @@ export function NetworkStats() {
             classname="content-center"
             title="Token Utilization Velocity"
             description="OPEN tokens part of transactions"
+            xAxisLabel="Time (Months)"
+            yAxisLabel="$OPEN Tokens"
             tooltip={{
               explanation: "Frequency of OPEN tokens within the network.",
               formula: "TUV = Transaction Volume / Circulating Supply"
@@ -554,6 +562,8 @@ export function NetworkStats() {
             classname="content-center"
             title="Data Value Index (DVI)"
             description="Valuation of data stored in the network (in USD)"
+            xAxisLabel="Time (Months)"
+            yAxisLabel="Value ($)"
             tooltip={{
               explanation: "Economic worth of stored data based on usage frequency and type.",
               formula: "Sum(Data worth per type)"
@@ -577,6 +587,8 @@ export function NetworkStats() {
             classname="content-center"
             title="Economic Viability of Node Operators (EVNO)"
             description="Monthly profit percentage achieved by purchasing an Xnode"
+            xAxisLabel="Time (Months)"
+            yAxisLabel="Profit (%)"
             tooltip={{
               explanation: "Comparison of node operators' underlying costs (hardware, electricity) versus earnings in OPEN tokens.",
               formula: "Monthly Token Earnings (MTE) / Monthly Operating Costs (MOC)"
@@ -614,6 +626,8 @@ export function NetworkStats() {
             classname="content-center"
             title="Fault Tolerance Threshold (FTT)"
             description="Nodes required to attack the network"
+            xAxisLabel="Time (Months)"
+            yAxisLabel="Nodes"
             tooltip={{
               explanation: "Percentage of nodes that can fail while maintaining full functionality.",
               formula: "Failed nodes / Total nodes"
@@ -640,6 +654,8 @@ export function NetworkStats() {
             classname="content-center"
             title="Consensus Finalization Time (CFT)"
             description="Time it takes the network to reach consensus (in seconds)"
+            xAxisLabel="Time (Months)"
+            yAxisLabel="Time (s)"
             tooltip={{
               explanation: "Time taken to finalize a consensus decision in network consensus.",
               formula: "Consensus for finality (s) * Total Network Nodes"

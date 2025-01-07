@@ -1,3 +1,5 @@
+"use client"
+
 import { Card, CardTitle, CardHeader } from "@/components/ui/card"
 import { useIsLgXlDevice } from "@/hooks/useIsLgXlDevice"
 import { cn, formatNumber } from "@/lib/utils"
@@ -9,7 +11,7 @@ export function CloudCabal() {
 
   const providers = [
     {
-      xAxis: "Openmesh",
+      xAxis: "Openmesh Cloud",
       color: "bg-blue-500",
       data: {
         value: config.numberOfXnodes * config.xnodeSize.storage,
