@@ -29,12 +29,13 @@ const CLOUD_COLORS = {
 
 const ZERO_OFFSET_PERCENTAGE = 0.02;
 
-type ExtendedChartDataPoint<T extends Properties> = {
+type BaseDataPoint = {
   xAxis: string;
-} & {
-  [K in keyof T]: number;
-} & {
-  [K in keyof T as `${string & K}_display`]?: number;
+  [key: string]: string | number;
+}
+
+type ExtendedChartDataPoint<T extends Properties> = BaseDataPoint & {
+  [P in keyof T]: number;
 }
 
 const displayNameMapping: Record<string, string> = {
@@ -103,14 +104,23 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
   return null;
 };
 
+interface ChartConfigItem {
+  label: string;
+  color?: string;
+  [key: string]: string | undefined;
+}
+
+type ChartConfig = Record<string, ChartConfigItem>;
+
 export function MultiLineChart<T extends Properties>(
   params: ChartParams<T> & {
+    chartConfig: ChartConfig;
     tooltip?: {
-      explanation?: string
-      formula?: string
-    },
-    yAxisLabel?: string,
-    xAxisLabel?: string
+      explanation?: string;
+      formula?: string;
+    };
+    yAxisLabel?: string;
+    xAxisLabel?: string;
   }
 ) {
   const getCloudColor = (property: string) => {
@@ -124,49 +134,45 @@ export function MultiLineChart<T extends Properties>(
 
   const containerRef = React.useRef<HTMLDivElement>(null)
 
-  // Function to check if a line has all zero values
   const isAllZeros = (key: keyof T): boolean => {
     return params.chartData.every(item => item.data[key] === 0)
   }
 
-  // Calculate the maximum value across all series to determine the scale
   const getMaxValue = (): number => {
     let max = 0
     Object.keys(params.chartConfig).forEach(key => {
       const seriesMax = Math.max(...params.chartData.map(item =>
-        item.data[key as keyof T] || 0
+        (item.data[key as keyof T] as number) || 0
       ))
       max = Math.max(max, seriesMax)
     })
     return max
   }
 
-  // Calculate the offset based on the maximum value
   const calculateOffset = (): number => {
     const maxValue = getMaxValue()
     return maxValue * ZERO_OFFSET_PERCENTAGE
   }
 
-  // Custom data transformer that adds offset to zero lines while preserving original values
   const transformData = (data: Array<{ xAxis: string; data: T }>): ExtendedChartDataPoint<T>[] => {
     const offset = calculateOffset();
     return data.map(item => {
-      const baseItem: ExtendedChartDataPoint<T> = {
+      const baseItem: BaseDataPoint = {
         xAxis: item.xAxis,
         ...item.data
       };
 
-      // Add display properties for zero lines without affecting the original data
       Object.keys(params.chartConfig).forEach(key => {
         const typedKey = key as keyof T;
+        const displayKey = `${String(typedKey)}_display`;
         if (isAllZeros(typedKey)) {
-          (baseItem as Record<string, number | undefined>)[`${String(typedKey)}_display`] = offset;
+          baseItem[displayKey] = offset;
         } else {
-          (baseItem as Record<string, number | undefined>)[`${String(typedKey)}_display`] = item.data[typedKey] + offset;
+          baseItem[displayKey] = item.data[typedKey] + offset;
         }
       });
 
-      return baseItem;
+      return baseItem as ExtendedChartDataPoint<T>;
     });
   };
 
@@ -174,6 +180,17 @@ export function MultiLineChart<T extends Properties>(
     xAxis: data.xAxis,
     data: data.data,
   })))
+
+  const config = Object.entries(params.chartConfig).reduce((acc, [key, value]) => {
+    return {
+      ...acc,
+      [key]: {
+        ...value,
+        color: getCloudColor(key),
+        name: value.label || (key === 'openmesh_display' ? 'Openmesh' : key),
+      }
+    };
+  }, {} as ChartConfig);
 
   return (
     <Card className={params.classname}>
@@ -194,21 +211,7 @@ export function MultiLineChart<T extends Properties>(
       <CardContent>
         <ChartContainer
           ref={containerRef}
-          config={Object.keys(params.chartConfig)
-            .map((property) => ({
-              property: property as keyof typeof params.chartConfig,
-              value: {
-                ...params.chartConfig[property as keyof T],
-                color: getCloudColor(property),
-              },
-            }))
-            .reduce(
-              (prev, cur) => {
-                prev[cur.property] = cur.value
-                return prev
-              },
-              {} as typeof params.chartConfig,
-            )}
+          config={config}
         >
           <LineChart
             accessibilityLayer
@@ -249,11 +252,12 @@ export function MultiLineChart<T extends Properties>(
               <ChartLegend
                 content={({ payload }) => {
                   const legendItems = (payload || []).map(item => {
-                    const key = item.dataKey;
+                    const key = item.dataKey as string;
+                    const configItem = params.chartConfig[key];
                     return {
                       ...item,
                       color: item.color || CLOUD_COLORS[key as keyof typeof CLOUD_COLORS],
-                      name: params.chartConfig[key]?.label || (key === 'openmesh_display' ? 'Openmesh' : key),
+                      name: configItem?.label || (key === 'openmesh_display' ? 'Openmesh' : key),
                     };
                   });
 

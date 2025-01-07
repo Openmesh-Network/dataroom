@@ -378,7 +378,7 @@ export function NetworkStats() {
             })}
             chartConfig={{
               openmesh: {
-                label: "Openmesh",
+                label: "Openmesh Cloud",
               },
               aws: {
                 label: "AWS",
@@ -442,7 +442,7 @@ export function NetworkStats() {
             ]}
             chartConfig={{
               openmesh: {
-                label: "Openmesh",
+                label: "Openmesh Cloud",
               },
               aws: {
                 label: "AWS",
@@ -516,7 +516,7 @@ export function NetworkStats() {
             })}
             chartConfig={{
               openmesh: {
-                label: "Openmesh",
+                label: "Openmesh Cloud",
               },
               aws: {
                 label: "AWS",
